@@ -11,13 +11,11 @@ export const PlaylistsPage = () => {
   const [pageSize, setPageSize] = useState(8);
   const [search, setSearch] = useState("");
   const debounceSearch = useDebounceValue(search);
-  const { data, isLoading } = useFetchPlaylistsQuery(
-    {
-      search: debounceSearch,
-      pageNumber: currentPage,
-      pageSize,
-    },
-  );
+  const { data, isLoading } = useFetchPlaylistsQuery({
+    search: debounceSearch,
+    pageNumber: currentPage,
+    pageSize,
+  });
 
   const changePageSizeHandler = (size: number) => {
     setCurrentPage(1);
@@ -29,10 +27,14 @@ export const PlaylistsPage = () => {
     setCurrentPage(1);
   };
 
+  if (isLoading) {
+    return <h1>Skeleton loader...</h1>;
+  }
+
   return (
     <div className={s.container}>
       <h1>Playlists page</h1>
-      <CreatePlaylistForm />
+      <CreatePlaylistForm setCurrentPage={setCurrentPage} />
       <input
         type="search"
         placeholder={"Search playlist by title"}
