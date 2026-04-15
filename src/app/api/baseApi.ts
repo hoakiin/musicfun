@@ -1,11 +1,7 @@
 import {
-  handleErrors,
-  isErrorWithDetailArray,
-  isErrorWithProperty,
-  trimToMaxLength,
+  handleErrors
 } from "@/common/utils";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { toast } from "react-toastify";
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
