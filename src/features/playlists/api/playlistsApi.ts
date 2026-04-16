@@ -15,8 +15,8 @@ export const playlistsApi = baseApi.injectEndpoints({
         query: (params) => {
           return {
             url: "/playlists",
-            params
-          }
+            params,
+          };
         },
         providesTags: ["Playlist"],
       }),
@@ -47,16 +47,75 @@ export const playlistsApi = baseApi.injectEndpoints({
         void,
         { playlistId: string; body: UpdatePlaylistArgs }
       >({
-        query: ({ playlistId, body }) => ({
-          method: "put",
-          url: `/playlists/${playlistId}`,
-          body: {
-            data: {
-              type: "playlists",
-              attributes: body,
+        query: ({ playlistId, body }) => {
+          console.log("4");
+
+          return {
+            method: "put",
+            url: `/playlists/${playlistId}`,
+            body: {
+              data: {
+                type: "playlists",
+                attributes: body,
+              },
             },
-          },
-        }),
+          };
+        },
+        async onQueryStarted(
+          { playlistId, body },
+          { dispatch, queryFulfilled, getState },
+        ) {
+          console.log("1");
+
+          const args = playlistsApi.util.selectCachedArgsForQuery(
+            getState(),
+            "fetchPlaylists",
+          );
+
+          const patchResults: any[] = [];
+
+          args.forEach((arg) => {
+            patchResults.push(
+              dispatch(
+                playlistsApi.util.updateQueryData(
+                  "fetchPlaylists",
+                  {
+                    pageNumber: arg.pageNumber,
+                    pageSize: arg.pageSize,
+                    search: arg.search,
+                  },
+                  (state) => {
+                    console.log("2");
+
+                    const index = state.data.findIndex(
+                      (playlist) => playlist.id === playlistId,
+                    );
+                    if (index !== -1) {
+                      state.data[index].attributes = {
+                        ...state.data[index].attributes,
+                        ...body,
+                      };
+                    }
+                  },
+                ),
+              ),
+            );
+          });
+
+          try {
+            console.log("3");
+
+            await queryFulfilled;
+
+            console.log("5 success");
+          } catch (e) {
+            patchResults.forEach((patchResult) => {
+              patchResult.undo();
+            });
+
+            console.log("5 error");
+          }
+        },
         invalidatesTags: ["Playlist"],
       }),
       uploadPlaylistCover: build.mutation<

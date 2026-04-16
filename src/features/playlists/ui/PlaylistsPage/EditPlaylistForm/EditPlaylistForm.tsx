@@ -28,7 +28,8 @@ export const EditPlaylistForm = ({
     updatePlaylist({
       playlistId,
       body,
-    }).then(() => setPlaylistId(null));
+    });
+    setPlaylistId(null);
   };
 
   return (
