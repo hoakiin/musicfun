@@ -5,3 +5,4 @@ export { isErrorWithDetailArray } from "./isErrorWithDetailArray";
 export { trimToMaxLength } from "./trimToMaxLength";
 export { errorToast } from "./errorToast";
 export { isTokens } from "./isTokens";
+export { withZodCatch } from "./withZodCatch";

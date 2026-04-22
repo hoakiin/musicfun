@@ -7,6 +7,12 @@ import type {
   UpdatePlaylistArgs,
 } from "./playlistsApi.types";
 import type { Images } from "@/common/types";
+import {
+  playlistCreateResponseSchema,
+  playlistsResponseSchema,
+} from "../model/playlists.schemas";
+import { errorToast, withZodCatch } from "@/common/utils";
+import { imagesSchema } from "@/common/schemas";
 
 export const playlistsApi = baseApi.injectEndpoints({
   endpoints: (build) => {
@@ -18,6 +24,7 @@ export const playlistsApi = baseApi.injectEndpoints({
             params,
           };
         },
+        ...withZodCatch(playlistsResponseSchema),
         providesTags: ["Playlist"],
       }),
       createPlaylist: build.mutation<
@@ -34,6 +41,7 @@ export const playlistsApi = baseApi.injectEndpoints({
             },
           },
         }),
+        ...withZodCatch(playlistCreateResponseSchema),
         invalidatesTags: ["Playlist"],
       }),
       deletePlaylist: build.mutation<void, string>({
@@ -48,8 +56,6 @@ export const playlistsApi = baseApi.injectEndpoints({
         { playlistId: string; body: UpdatePlaylistArgs }
       >({
         query: ({ playlistId, body }) => {
-          console.log("4");
-
           return {
             method: "put",
             url: `/playlists/${playlistId}`,
@@ -65,8 +71,6 @@ export const playlistsApi = baseApi.injectEndpoints({
           { playlistId, body },
           { dispatch, queryFulfilled, getState },
         ) {
-          console.log("1");
-
           const args = playlistsApi.util.selectCachedArgsForQuery(
             getState(),
             "fetchPlaylists",
@@ -85,8 +89,6 @@ export const playlistsApi = baseApi.injectEndpoints({
                     search: arg.search,
                   },
                   (state) => {
-                    console.log("2");
-
                     const index = state.data.findIndex(
                       (playlist) => playlist.id === playlistId,
                     );
@@ -103,17 +105,11 @@ export const playlistsApi = baseApi.injectEndpoints({
           });
 
           try {
-            console.log("3");
-
             await queryFulfilled;
-
-            console.log("5 success");
           } catch (e) {
             patchResults.forEach((patchResult) => {
               patchResult.undo();
             });
-
-            console.log("5 error");
           }
         },
         invalidatesTags: ["Playlist"],
@@ -132,6 +128,7 @@ export const playlistsApi = baseApi.injectEndpoints({
             body: formData,
           };
         },
+        ...withZodCatch(imagesSchema),
         invalidatesTags: ["Playlist"],
       }),
       deletePlaylistCover: build.mutation<void, { playlistId: string }>({
