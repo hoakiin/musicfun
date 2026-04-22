@@ -4,3 +4,4 @@ export { isErrorWithProperty } from "./isErrorWithProperty";
 export { isErrorWithDetailArray } from "./isErrorWithDetailArray";
 export { trimToMaxLength } from "./trimToMaxLength";
 export { errorToast } from "./errorToast";
+export { isTokens } from "./isTokens";
