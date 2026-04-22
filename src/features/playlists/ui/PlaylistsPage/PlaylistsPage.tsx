@@ -34,7 +34,6 @@ export const PlaylistsPage = () => {
   return (
     <div className={s.container}>
       <h1>Playlists page</h1>
-      <CreatePlaylistForm setCurrentPage={setCurrentPage} />
       <input
         type="search"
         placeholder={"Search playlist by title"}
