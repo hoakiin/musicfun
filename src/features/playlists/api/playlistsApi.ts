@@ -1,4 +1,11 @@
 import { baseApi } from "@/app/api/baseApi";
+import { imagesSchema } from "@/common/schemas";
+import type { Images } from "@/common/types";
+import { withZodCatch } from "@/common/utils";
+import {
+  playlistCreateResponseSchema,
+  playlistsResponseSchema,
+} from "../model/playlists.schemas";
 import type {
   CreatePlaylistFormValues,
   FetchPlaylistsArgs,
@@ -6,13 +13,6 @@ import type {
   PlaylistsResponse,
   UpdatePlaylistArgs,
 } from "./playlistsApi.types";
-import type { Images } from "@/common/types";
-import {
-  playlistCreateResponseSchema,
-  playlistsResponseSchema,
-} from "../model/playlists.schemas";
-import { errorToast, withZodCatch } from "@/common/utils";
-import { imagesSchema } from "@/common/schemas";
 
 export const playlistsApi = baseApi.injectEndpoints({
   endpoints: (build) => {
