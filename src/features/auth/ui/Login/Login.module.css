@@ -1,0 +1,8 @@
+.logoutBtn {
+    background-color: var(--accent-primary);
+    color: var(--text-primary);
+    height: 45px;
+    width: 200px;   
+    border-radius: 45px;
+    font-weight: 600;
+}
