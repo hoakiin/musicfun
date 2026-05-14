@@ -1,4 +1,11 @@
 .layout {
-  max-width: 1186px;
-  margin: 0 auto 200px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.content {
+  flex: 1;
+  margin-left: 310px;
+  padding: 110px 30px 30px;
+  min-height: 100vh;
 }

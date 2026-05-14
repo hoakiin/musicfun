@@ -13,6 +13,9 @@ export const Path = {
   Profile: "/profile",
   OAuthRedirect: "/oauth/callback",
   NotFound: "*",
+  Library: "/library",
+  CreatePlaylist: "/create-playlist",
+  UploadTrack: "/upload-track",
 } as const;
 
 export const Routing = () => (

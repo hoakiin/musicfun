@@ -1,4 +1,4 @@
-import { Header, LinearProgress } from "@/common/components";
+import { Header, LinearProgress, Sidebar } from "@/common/components";
 import { Routing } from "@/common/routing";
 import { ToastContainer } from "react-toastify";
 import s from "./App.module.css";
@@ -12,7 +12,10 @@ function App() {
       <Header />
       {isGlobalLoading && <LinearProgress />}
       <div className={s.layout}>
-        <Routing />
+        <Sidebar />
+        <div className={s.content}>
+          <Routing />
+        </div>
       </div>
       <ToastContainer />
     </>

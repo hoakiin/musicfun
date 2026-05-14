@@ -1,0 +1,31 @@
+.container {
+  width: 270px;
+  height: calc(100vh - 80px);
+  position: fixed;
+  top: 70px;
+  left: 0;
+  background-color: var(--bg-sidebar);
+  color: var(--text-primary);
+  overflow-y: auto;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-left: 38px;
+}
+
+.link {
+  font-weight: 700;
+  font-size: 18px;
+  opacity: 70%;
+}
+
+.link:hover {
+  opacity: 100%;
+}
+
+.activeLink {
+  opacity: 100%;
+}
