@@ -1,0 +1,60 @@
+:root {
+  /* ========== BACKGROUNDS ========== */
+  --bg-app: #000000;
+  --bg-sidebar: #000000;
+  --bg-main: #0d0d0d;
+  --bg-surface: #181818;
+  --bg-card: rgba(7, 7, 7, 0.5);
+  --bg-player: rgba(24, 24, 24, 1);
+  --bg-input: rgba(47, 47, 47, 1);
+  --bg-dropdown: rgba(47, 47, 47, 1);
+
+  /* ========== GRADIENTS ========== */
+  --gradient-main: linear-gradient(
+    180deg,
+    rgba(51, 51, 163, 1) 0%,
+    rgba(40, 40, 120, 1) 15%,
+    rgba(28, 28, 60, 1) 30%,
+    rgba(18, 18, 18, 1) 50%
+  );
+
+  /* ========== TEXT ========== */
+  --text-primary: rgba(255, 255, 255, 1);
+  --text-secondary: rgba(179, 179, 179, 1);
+  --text-disabled: #555555;
+
+  /* ========== BRAND ========== */
+  --accent-primary: rgba(255, 56, 182, 1);
+  --accent-hover: #ad337a;
+
+  /* ========== STATES ========== */
+  --success: #1db954;
+  --warning: #f5c451;
+  --error: #ff4d4f;
+
+  /* ========== BORDER ========== */
+  --border-primary: #2d2d2d;
+  --border-subtle: #1b1b1b;
+  --border-active: #ff2ea6;
+
+  /* ========== ICONS ========== */
+  --icon-primary: #ffffff;
+  --icon-secondary: #9f9f9f;
+  --icon-active: #ff2ea6;
+
+  /* ========== PLAYER ========== */
+  --progress-bg: #5a5a5a;
+  --progress-fill: #ffffff;
+  --volume-bg: #5a5a5a;
+  --volume-fill: #ffffff;
+
+  /* ========== SHADOWS ========== */
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-dropdown: 0 12px 30px rgba(0, 0, 0, 0.45);
+  --shadow-player: 0 -4px 20px rgba(0, 0, 0, 0.4);
+
+  /* ========== TRANSITIONS ========== */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+  --transition-slow: 0.4s ease;
+}
