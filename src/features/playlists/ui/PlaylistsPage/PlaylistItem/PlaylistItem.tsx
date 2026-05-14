@@ -4,14 +4,10 @@ import { PlaylistDescription } from "./PlaylistDescription/PlaylistDescription";
 
 type Props = {
   playlist: PlaylistData;
-  deletePlaylistHandler: (playlistId: string) => void;
-  editPlaylistHandler: (playlist: PlaylistData) => void;
 };
 
 export const PlaylistItem = ({
   playlist,
-  deletePlaylistHandler,
-  editPlaylistHandler,
 }: Props) => {
   return (
     <div>
@@ -20,8 +16,6 @@ export const PlaylistItem = ({
         images={playlist.attributes.images}
       />
       <PlaylistDescription attributes={playlist.attributes} />
-      <button onClick={() => deletePlaylistHandler(playlist.id)}>delete</button>
-      <button onClick={() => editPlaylistHandler(playlist)}>update</button>
     </div>
   );
 };

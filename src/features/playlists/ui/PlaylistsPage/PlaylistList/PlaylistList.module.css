@@ -1,12 +1,10 @@
 .items {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
 }
- 
+
 .item {
-  width: 240px;
-  padding: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 8px;
+  background-color: var(--bg-card);
 }

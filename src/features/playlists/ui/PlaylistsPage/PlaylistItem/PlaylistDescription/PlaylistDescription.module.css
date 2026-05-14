@@ -1,0 +1,35 @@
+.container {
+  padding: 12px 0;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.userName {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+.stats {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.likes {
+  font-size: 14px;
+  color: var(--text-disabled);
+}
