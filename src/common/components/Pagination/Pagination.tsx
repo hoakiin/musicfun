@@ -47,7 +47,7 @@ export const Pagination = ({
           ),
         )}
       </div>
-      <label>
+      <label className={s.select}>
         Show
         <select
           value={pageSize}
