@@ -1,0 +1,12 @@
+.input {
+    background-color: var(--bg-input);
+    outline: none;
+    border: 1px solid rgba(179, 179, 179, 1);
+    padding: 12px;
+    color: var(--text-primary);
+    width: 100%;
+}
+
+.input::placeholder {
+    color: var(--text-secondary);
+}
