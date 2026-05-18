@@ -1,22 +1,66 @@
 .container {
-  border-bottom: 1px solid black;
-  padding: 0 100px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 42px 0 410px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.list {
-  display: flex;
-  gap: 40px;
-}
-
-.activeLink {
-  font-weight: bold;
+  justify-content: flex-end;
+  height: 70px;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
 }
 
 .loginContainer {
-  display: flex;
-  gap: 10px;
-  align-items: center;
+  position: relative;
+}
+
+.loginBtn {
+  padding: 8px 16px;
+  background-color: var(--bg-surface);
+  border-radius: 20px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.loginBtn:hover {
+  background-color: var(--bg-card);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+  overflow: hidden;
+  list-style: none;
+  z-index: 200;
+}
+
+.dropdown li {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.dropdown li:last-child {
+  border-bottom: none;
+}
+
+.dropdown a,
+.dropdown button {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown a:hover,
+.dropdown button:hover {
+  background-color: var(--bg-card);
 }

@@ -1,43 +1,53 @@
 import { Path } from "@/common/routing";
 import { useGetMeQuery, useLogoutMutation } from "@/features/auth/api/authApi";
 import { Login } from "@/features/auth/ui/Login/Login";
-import { Link, NavLink } from "react-router";
+import { Link } from "react-router";
 import s from "./Header.module.css";
-
-const navItems = [
-  { to: Path.Main, label: "Main" },
-  { to: Path.Playlists, label: "Playlists" },
-  { to: Path.Tracks, label: "Tracks" },
-];
+import { useState, useRef, useEffect } from "react";
 
 export const Header = () => {
   const { data } = useGetMeQuery();
   const [logout] = useLogoutMutation();
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const logoutHandler = () => logout()
+  const logoutHandler = () => logout();
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className={s.container}>
-      <nav>
-        <ul className={s.list}>
-          {navItems.map((item) => (
-            <li key={item.to}>
-              <NavLink
-                to={item.to}
-                className={({ isActive }) =>
-                  `link ${isActive ? s.activeLink : ""}`
-                }
-              >
-                {item.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
       {data && (
-        <div className={s.loginContainer}>
-          <Link to={Path.Profile}>{data.login}</Link>
-          <button onClick={logoutHandler}>logout</button>
+        <div className={s.loginContainer} ref={dropdownRef}>
+          <button
+            className={s.loginBtn}
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            {data.login}
+          </button>
+          {isOpen && (
+            <ul className={s.dropdown}>
+              <li>
+                <Link to={Path.Profile} onClick={() => setIsOpen(false)}>
+                  My profile
+                </Link>
+              </li>
+              <li>
+                <button onClick={logoutHandler}>Logout</button>
+              </li>
+            </ul>
+          )}
         </div>
       )}
       {!data && <Login />}
