@@ -1,4 +1,4 @@
-import { Pagination, SearchInput } from "@/common/components";
+import { Pagination, SearchInput, SortSelect } from "@/common/components";
 import { useDebounceValue } from "@/common/hooks";
 import { useState, type ChangeEvent } from "react";
 import { useFetchPlaylistsQuery } from "../../api/playlistsApi";
@@ -11,7 +11,7 @@ export const PlaylistsPage = () => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<"newest" | "oldest" | "top">("newest");
   const debounceSearch = useDebounceValue(search);
-  const sortBy = sort === "top" ? "likesCount" : "addedAt";
+  const sortBy = sort === "top" ? "likesCount" : "publishedAt";
   const sortDirection = sort === "oldest" ? "asc" : "desc";
   const { data, isLoading } = useFetchPlaylistsQuery({
     search: debounceSearch,
@@ -31,8 +31,8 @@ export const PlaylistsPage = () => {
     setCurrentPage(1);
   };
 
-  const sortHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSort(e.currentTarget.value as "newest" | "oldest" | "top");
+  const sortHandler = (value: "newest" | "oldest" | "top") => {
+    setSort(value);
     setCurrentPage(1);
   };
 
@@ -52,14 +52,7 @@ export const PlaylistsPage = () => {
           />
         </div>
 
-        <div className={s.selectContainer} >
-          <span className={s.selectLabel}>Sort By</span>
-          <select className={s.select} value={sort} onChange={sortHandler}>
-            <option value="newest">Newest first</option>
-            <option value="oldest">Oldest first</option>
-            <option value="top">Top-rated first</option>
-          </select>
-        </div>
+        <SortSelect value={sort} onChange={sortHandler} />
       </div>
       
       <PlaylistsList

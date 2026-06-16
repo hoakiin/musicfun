@@ -1,0 +1,22 @@
+.selectContainer {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.selectLabel {
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.select {
+  color: var(--text-primary);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  flex-shrink: 0;
+}
+
+.select option {
+  background-color: var(--bg-app);
+}

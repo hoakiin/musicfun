@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  overflow-x: hidden;
 }
 
 .title {
@@ -18,11 +17,4 @@
   align-items: center;
 }
 
-.inputWrapper {
-  min-width: 0;
-}
-
-.inputWrapper input {
-  width: 100%;
-}
 
