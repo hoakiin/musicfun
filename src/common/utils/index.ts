@@ -7,3 +7,4 @@ export { errorToast } from "./errorToast";
 export { isTokens } from "./isTokens";
 export { withZodCatch } from "./withZodCatch";
 export { formatRelativeDate } from "./formatRelativeDate";
+export { formatDuration } from "./formatDuration";

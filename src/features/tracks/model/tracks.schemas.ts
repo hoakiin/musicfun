@@ -32,6 +32,7 @@ export const trackAttributesSchema = z.object({
   user: userSchema,
   isPublished: z.boolean(),
   publishedAt: z.iso.datetime(),
+  duration: z.number().int().nonnegative(),
 })
  
 export const tracksMetaSchema = z.object({
