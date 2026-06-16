@@ -35,7 +35,7 @@ export const TracksPage = () => {
 
   return (
     <div className={s.container}>
-      <h1 className={s.title}>Tracks page</h1>
+      <h1 className={s.title}>All Tracks</h1>
 
       <div className={s.search}>
         <div className={s.inputWrapper}>

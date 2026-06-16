@@ -11,7 +11,7 @@ export const PlaylistsPage = () => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<"newest" | "oldest" | "top">("newest");
   const debounceSearch = useDebounceValue(search);
-  const sortBy = sort === "top" ? "likesCount" : "publishedAt";
+  const sortBy = sort === "top" ? "likesCount" : "addedAt";
   const sortDirection = sort === "oldest" ? "asc" : "desc";
   const { data, isLoading } = useFetchPlaylistsQuery({
     search: debounceSearch,
