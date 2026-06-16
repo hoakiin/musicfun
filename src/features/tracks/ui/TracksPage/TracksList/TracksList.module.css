@@ -5,7 +5,7 @@
 
 .header {
   display: grid;
-  grid-template-columns: 40px 1fr 140px 80px;
+  grid-template-columns: 20px 250px 1fr 140px 80px;
   gap: 16px;
   align-items: center;
   padding: 12px 16px;
@@ -17,17 +17,30 @@
 
 .row {
   display: grid;
-  grid-template-columns: 40px 1fr 140px 80px;
+  grid-template-columns: 20px 250px 1fr 140px 80px;
   gap: 16px;
   align-items: center;
   padding: 12px 16px;
-  border-bottom: 1px solid var(--border-primary);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.active {
+  background: rgba(255, 56, 182, 0.06);
 }
 
 .colNum {
   text-align: center;
   color: var(--text-secondary);
   font-size: 20px;
+}
+
+.active .colNum {
+  color: var(--accent-primary);
 }
 
 .colTitle {
@@ -38,6 +51,16 @@
   font-size: 16px;
 }
 
+.colTitle > :first-child {
+  flex-shrink: 0;
+}
+
+.colProgress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .colDate {
   color: var(--text-secondary);
   font-size: 16px;
@@ -46,6 +69,7 @@
 .colTime {
   color: var(--text-secondary);
   font-size: 16px;
+  justify-self: end;
 }
 
 .info {
@@ -69,4 +93,19 @@
 
 .userName {
   color: var(--text-secondary);
+}
+
+.progressBar {
+  width: 183px;
+  height: 4px;
+  background: var(--progress-bg);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent-primary);
+  border-radius: 4px;
 }

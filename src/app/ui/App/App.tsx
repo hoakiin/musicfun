@@ -1,6 +1,7 @@
 import { Header, LinearProgress, Sidebar } from "@/common/components";
 import { Routing } from "@/common/routing";
 import { ToastContainer } from "react-toastify";
+import { PlayerBar } from "@/features/player/ui/PlayerBar/PlayerBar";
 import s from "./App.module.css";
 import { useGlobalLoading } from "@/common/hooks";
 
@@ -17,6 +18,7 @@ function App() {
           <Routing />
         </div>
       </div>
+      <PlayerBar />
       <ToastContainer />
     </>
   );

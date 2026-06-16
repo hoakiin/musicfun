@@ -12,8 +12,8 @@ export const TrackCover = ({ images }: Props) => {
   const src = originalCover ? originalCover?.url : defaultCover;
 
   return (
-    <div>
-      <img src={src} alt={"cover"} width={"100px"} className={s.cover} />
+    <div className={s.wrapper}>
+      <img src={src} alt={"cover"} className={s.cover} />
     </div>
   );
 };

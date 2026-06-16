@@ -4,9 +4,12 @@ import { TracksList } from "./TracksList/TracksList";
 import { LoadingTrigger } from "./LoadingTrigger/LoadingTrigger";
 import s from "./TracksPage.module.css";
 import { SearchInput, SortSelect } from "@/common/components";
-import { useState, type ChangeEvent } from "react";
+import { useState, useEffect, type ChangeEvent } from "react";
+import { useAppDispatch } from "@/app/model/store";
+import { setQueue } from "@/features/player/model/playerSlice";
 
 export const TracksPage = () => {
+  const dispatch = useAppDispatch();
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<"newest" | "oldest" | "top">("newest");
   const debounceSearch = useDebounceValue(search);
@@ -32,6 +35,10 @@ export const TracksPage = () => {
   });
 
   const pages = data?.pages.flatMap((page) => page.data) || [];
+
+  useEffect(() => {
+    dispatch(setQueue(pages));
+  }, [dispatch, pages]);
 
   return (
     <div className={s.container}>
