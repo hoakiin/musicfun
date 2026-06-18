@@ -1,0 +1,113 @@
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.control {
+  min-height: 44px;
+  border: 1px solid rgb(102, 102, 102);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  cursor: pointer;
+  background: var(--bg-input);
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 14px;
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+}
+
+.chip:first-child {
+  margin-left: 10px;
+}
+
+.removeButton {
+  all: unset;
+
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(169, 169, 169, 1);
+  cursor: pointer;
+  color: var(--bg-input);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 10px;
+}
+
+.removeButton:hover {
+  background-color: var(--text-primary);
+}
+
+.extra {
+  font-size: 14px;
+}
+
+.placeholder {
+  color: var(--text-secondary);
+}
+
+.arrow {
+  color: var(--text-primary);
+  flex-shrink: 0;
+  padding: 0 10px 10px 0;
+}
+
+.dropdown {
+  position: absolute;
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-dropdown);
+  z-index: 100;
+  color: var(--text-secondary);
+}
+
+.input {
+  flex: 1;
+  min-width: 120px;
+  background: transparent;
+  outline: none;
+  border: none;
+  padding: 12px;
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
+.input::placeholder {
+  color: var(--text-secondary);
+}
+
+.list {
+  max-height: 250px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.checked {
+  background: rgba(81, 23, 60, 1);
+}
+
+.loading {
+  padding: 10px;
+}
