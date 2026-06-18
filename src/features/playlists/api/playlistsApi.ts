@@ -22,10 +22,13 @@ export const playlistsApi = baseApi.injectEndpoints({
   endpoints: (build) => {
     return {
       fetchPlaylists: build.query<PlaylistsResponse, FetchPlaylistsArgs>({
-        query: (params) => {
+        query: ({ tagsIds, ...params }) => {
           return {
             url: "/playlists",
-            params,
+            params: {
+              ...params,
+              ...(tagsIds?.length ? { tagsIds: tagsIds.join(",") } : {}),
+            },
           };
         },
         ...withZodCatch(playlistsResponseSchema),

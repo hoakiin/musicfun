@@ -21,6 +21,8 @@ export const tracksApi = baseApi.injectEndpoints({
           search: queryArg.search,
           sortBy: queryArg.sortBy,
           sortDirection: queryArg.sortDirection,
+          tagsIds: queryArg.tagsIds?.join(","),
+          artistsIds: queryArg.artistsIds?.join(","),
         },
       }),
       ...withZodCatch(fetchTracksResponseSchema)

@@ -1,15 +1,17 @@
-import { Pagination, SearchInput, SortSelect } from "@/common/components";
+import { Pagination, SearchInput, SortSelect, TagSelect } from "@/common/components";
 import { useDebounceValue } from "@/common/hooks";
 import { useState, type ChangeEvent } from "react";
 import { useFetchPlaylistsQuery } from "../../api/playlistsApi";
 import { PlaylistsList } from "./PlaylistList/PlaylistList";
 import s from "./PlaylistsPage.module.css";
+import type { Tag } from "@/common/types";
 
 export const PlaylistsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(8);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<"newest" | "oldest" | "top">("newest");
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const debounceSearch = useDebounceValue(search);
   const sortBy = sort === "top" ? "likesCount" : "addedAt";
   const sortDirection = sort === "oldest" ? "asc" : "desc";
@@ -19,6 +21,7 @@ export const PlaylistsPage = () => {
     pageSize,
     sortBy,
     sortDirection,
+    tagsIds: selectedTags.map((t) => t.id),
   });
 
   const changePageSizeHandler = (size: number) => {
@@ -54,7 +57,12 @@ export const PlaylistsPage = () => {
 
         <SortSelect value={sort} onChange={sortHandler} />
       </div>
-      
+
+      <div className={s.filterWrapper}>
+        <span className={s.label}>Hashtags</span>
+        <TagSelect selectedTags={selectedTags} onChange={setSelectedTags} />
+      </div>
+
       <PlaylistsList
         isPlaylistsLoading={isLoading}
         playlists={data?.data || []}

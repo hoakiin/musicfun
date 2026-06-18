@@ -6,8 +6,8 @@
   --bg-surface: #181818;
   --bg-card: rgba(7, 7, 7, 0.5);
   --bg-player: rgba(24, 24, 24, 1);
-  --bg-input: rgba(47, 47, 47, 1);
-  --bg-dropdown: rgba(47, 47, 47, 1);
+  --bg-input: rgb(29, 29, 29);
+  --bg-dropdown: rgb(29, 29, 29);
 
   /* ========== GRADIENTS ========== */
   --gradient-main: linear-gradient(

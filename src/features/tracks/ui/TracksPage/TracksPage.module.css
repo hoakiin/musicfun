@@ -17,4 +17,24 @@
   align-items: center;
 }
 
+.filters {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
 

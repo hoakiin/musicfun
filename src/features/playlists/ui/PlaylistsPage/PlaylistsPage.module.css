@@ -26,3 +26,15 @@
   width: 100%;
 }
 
+.filterWrapper {
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
