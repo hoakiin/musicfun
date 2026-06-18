@@ -20,7 +20,6 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   background: var(--gradient-main);
-  background-attachment: fixed;
 }
 
 img,
