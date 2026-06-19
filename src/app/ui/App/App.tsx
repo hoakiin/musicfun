@@ -1,4 +1,4 @@
-import { Header, LinearProgress, Sidebar } from "@/common/components";
+import { Header, LinearProgress, Sidebar, SvgSprite } from "@/common/components";
 import { Routing } from "@/common/routing";
 import { ToastContainer } from "react-toastify";
 import { PlayerBar } from "@/features/player/ui/PlayerBar/PlayerBar";
@@ -10,6 +10,7 @@ function App() {
 
   return (
     <>
+      <SvgSprite />
       <Header />
       {isGlobalLoading && <LinearProgress />}
       <div className={s.layout}>

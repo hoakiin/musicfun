@@ -11,7 +11,7 @@ import {
 } from "../model/playerSlice";
 import { triggerPlay } from "../lib/playController";
 
-const REPEAT_CYCLE: RepeatMode[] = ["off", "all", "one"];
+const REPEAT_CYCLE: RepeatMode[] = ["off", "all"];
 
 export const usePlayerControls = () => {
   const dispatch = useAppDispatch();

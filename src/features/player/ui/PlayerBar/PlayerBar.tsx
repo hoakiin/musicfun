@@ -6,6 +6,7 @@ import { setPlayerHandler } from "../../lib/playController";
 import { playerStore } from "../../lib/playerStore";
 import { usePlayerControls } from "../../hooks/usePlayerControls";
 import { formatDuration } from "@/common/utils";
+import { Icon } from "@/common/components/Icon/Icon";
 import defaultCover from "@/assets/images/default-playlist-cover.png";
 import s from "./PlayerBar.module.css";
 
@@ -125,23 +126,27 @@ export const PlayerBar = () => {
                 onClick={toggleShuffle}
                 title="Shuffle"
               >
-                🔀
+                <Icon iconId="shuffle" width="20" height="20" viewBox="0 0 32 32" />
               </button>
               <button className={s.skipBtn} onClick={prev} title="Previous">
-                ⏮
+                <Icon iconId="prev" width="20" height="20" viewBox="0 0 32 32" />
               </button>
               <button className={s.playBtn} onClick={handlePlayToggle}>
-                {isPlaying ? "⏸" : "▶"}
+                {isPlaying ? (
+                  <Icon iconId="pause" width="30" height="30" viewBox="0 0 40 40" />
+                ) : (
+                  <Icon iconId="play" width="30" height="30" viewBox="0 0 40 40" />
+                )}
               </button>
               <button className={s.skipBtn} onClick={next} title="Next">
-                ⏭
+                <Icon iconId="next" width="20" height="20" viewBox="0 0 32 32" />
               </button>
               <button
                 className={`${s.skipBtn} ${repeat !== "off" ? s.active : ""}`}
                 onClick={cycleRepeat}
                 title={`Repeat: ${repeat}`}
               >
-                {repeat === "one" ? "🔂" : "🔁"}
+                <Icon iconId="repeat" width="20" height="20" viewBox="0 0 32 32" />
               </button>
             </div>
 
@@ -166,6 +171,7 @@ export const PlayerBar = () => {
           </div>
 
           <div className={s.right}>
+            <Icon iconId="volume" width="20" height="20" viewBox="0 0 32 32" />
             <input
               type="range"
               min="0"
