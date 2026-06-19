@@ -1,7 +1,7 @@
 import { Path } from "@/common/routing";
 import { useGetMeQuery, useLogoutMutation } from "@/features/auth/api/authApi";
 import { Login } from "@/features/auth/ui/Login/Login";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import s from "./Header.module.css";
 import { useState, useRef, useEffect } from "react";
 
@@ -10,6 +10,8 @@ export const Header = () => {
   const [logout] = useLogoutMutation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const isPlaylistPage = /^\/playlists\/[^/]+$/.test(location.pathname);
 
   const logoutHandler = () => logout();
 
@@ -27,7 +29,7 @@ export const Header = () => {
   }, []);
 
   return (
-    <header className={s.container}>
+    <header className={`${s.container} ${isPlaylistPage ? s.transparent : ""}`}>
       {data && (
         <div className={s.loginContainer} ref={dropdownRef}>
           <button
