@@ -1,21 +1,19 @@
-import type { PlaylistData } from "@/features/playlists/api/playlistsApi.types";
+import { Link } from "react-router";
+import type { PlaylistListData } from "@/features/playlists/api/playlistsApi.types";
 import { PlaylistCover } from "./PlaylistCover/PlaylistCover";
 import { PlaylistDescription } from "./PlaylistDescription/PlaylistDescription";
 
 type Props = {
-  playlist: PlaylistData;
+  playlist: PlaylistListData;
 };
 
 export const PlaylistItem = ({
   playlist,
 }: Props) => {
   return (
-    <div>
-      <PlaylistCover
-        playlistId={playlist.id}
-        images={playlist.attributes.images}
-      />
+    <Link to={`/playlists/${playlist.id}`}>
+      <PlaylistCover images={playlist.attributes.images} />
       <PlaylistDescription attributes={playlist.attributes} />
-    </div>
+    </Link>
   );
 };

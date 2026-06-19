@@ -6,6 +6,7 @@ import type { Images } from "@/common/types";
 import { withZodCatch } from "@/common/utils";
 import {
   playlistCreateResponseSchema,
+  playlistResponseSchema,
   playlistsResponseSchema,
 } from "../model/playlists.schemas";
 import type {
@@ -76,6 +77,16 @@ export const playlistsApi = baseApi.injectEndpoints({
           await cacheEntryRemoved;
           unsubscribes.forEach((unsubscribe) => unsubscribe());
         },
+        providesTags: ["Playlist"],
+      }),
+      fetchPlaylist: build.query<
+        { data: PlaylistData },
+        string
+      >({
+        query: (playlistId) => ({
+          url: `/playlists/${playlistId}`,
+        }),
+        ...withZodCatch(playlistResponseSchema),
         providesTags: ["Playlist"],
       }),
       createPlaylist: build.mutation<
@@ -195,6 +206,7 @@ export const playlistsApi = baseApi.injectEndpoints({
 
 export const {
   useFetchPlaylistsQuery,
+  useFetchPlaylistQuery,
   useCreatePlaylistMutation,
   useDeletePlaylistMutation,
   useUpdatePlaylistMutation,

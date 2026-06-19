@@ -3,7 +3,6 @@ import type { Images } from "@/common/types";
 import s from "./PlaylistCover.module.css";
 
 type Props = {
-  playlistId: string;
   images: Images;
 };
 

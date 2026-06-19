@@ -1,8 +1,8 @@
-import type { PlaylistAttributes } from "@/features/playlists/api/playlistsApi.types"
+import type { PlaylistListAttributes } from "@/features/playlists/api/playlistsApi.types"
 import s from "./PlaylistDescription.module.css"
 
 type Props = {
-  attributes: PlaylistAttributes
+  attributes: PlaylistListAttributes
 }
 
 export const PlaylistDescription = ({ attributes }: Props) => {

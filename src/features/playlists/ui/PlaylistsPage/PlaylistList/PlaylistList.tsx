@@ -1,11 +1,11 @@
 import type {
-  PlaylistData
+  PlaylistListData
 } from "@/features/playlists/api/playlistsApi.types";
 import { PlaylistItem } from "../PlaylistItem/PlaylistItem";
 import s from "./PlaylistList.module.css";
 
 type Props = {
-  playlists: PlaylistData[];
+  playlists: PlaylistListData[];
   isPlaylistsLoading: boolean;
 };
 

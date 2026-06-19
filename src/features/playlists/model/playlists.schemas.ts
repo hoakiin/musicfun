@@ -19,12 +19,12 @@ export const createPlaylistSchema = z.object({
 export const playlistMetaSchema = z.object({
   page: z.int().positive(),
   pageSize: z.int().positive(),
-  totalCount: z.int().positive(),
-  pagesCount: z.int().positive(),
+  totalCount: z.int().nonnegative(),
+  pagesCount: z.int().nonnegative(),
 });
 
 
-export const playlistAttributesSchema = z.object({
+export const playlistListAttributesSchema = z.object({
   title: z.string(),
   addedAt: z.iso.datetime(),
   updatedAt: z.iso.datetime(),
@@ -39,6 +39,16 @@ export const playlistAttributesSchema = z.object({
   duration: z.number().int().nonnegative(),
 });
 
+export const playlistAttributesSchema = playlistListAttributesSchema.extend({
+  description: z.string(),
+});
+
+export const playlistListDataSchema = z.object({
+  id: z.string(),
+  type: z.literal("playlists"),
+  attributes: playlistListAttributesSchema,
+});
+
 export const playlistDataSchema = z.object({
   id: z.string(),
   type: z.literal("playlists"),
@@ -46,10 +56,14 @@ export const playlistDataSchema = z.object({
 });
 
 export const playlistsResponseSchema = z.object({
-  data: z.array(playlistDataSchema),
+  data: z.array(playlistListDataSchema),
   meta: playlistMetaSchema,
 });
 
 export const playlistCreateResponseSchema = z.object({
+  data: playlistDataSchema,
+});
+
+export const playlistResponseSchema = z.object({
   data: playlistDataSchema,
 });

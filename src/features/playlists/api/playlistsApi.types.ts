@@ -1,6 +1,8 @@
 import type z from "zod";
 import type {
   playlistMetaSchema,
+  playlistListAttributesSchema,
+  playlistListDataSchema,
   playlistAttributesSchema,
   playlistDataSchema,
   playlistsResponseSchema,
@@ -8,6 +10,8 @@ import type {
 } from "../model/playlists.schemas";
 
 export type PlaylistMeta = z.infer<typeof playlistMetaSchema>;
+export type PlaylistListAttributes = z.infer<typeof playlistListAttributesSchema>;
+export type PlaylistListData = z.infer<typeof playlistListDataSchema>;
 export type PlaylistAttributes = z.infer<typeof playlistAttributesSchema>;
 export type PlaylistData = z.infer<typeof playlistDataSchema>;
 export type PlaylistsResponse = z.infer<typeof playlistsResponseSchema>;
