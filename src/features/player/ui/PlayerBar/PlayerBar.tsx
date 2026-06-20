@@ -162,7 +162,9 @@ export const PlayerBar = () => {
                 <div
                   className={s.progressFill}
                   style={{ width: `${progress}%` }}
-                />
+                >
+                  <div className={s.progressThumb} />
+                </div>
               </div>
               <span className={s.time}>
                 {formatDuration(Math.floor(duration))}

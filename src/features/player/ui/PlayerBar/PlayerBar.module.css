@@ -137,6 +137,21 @@
   background: var(--progress-fill);
   border-radius: 2px;
   transition: width 0.1s linear;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.progressThumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--progress-fill);
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .right {
