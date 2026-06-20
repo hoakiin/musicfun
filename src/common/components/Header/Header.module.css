@@ -13,10 +13,6 @@
   color: var(--text-primary);
 }
 
-.transparent {
-  background-color: transparent;
-}
-
 .loginContainer {
   position: relative;
 }

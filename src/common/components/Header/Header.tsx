@@ -10,9 +10,6 @@ export const Header = () => {
   const [logout] = useLogoutMutation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const location = useLocation();
-  const isPlaylistPage = /^\/playlists\/[^/]+$/.test(location.pathname);
-
   const logoutHandler = () => logout();
 
   useEffect(() => {
@@ -29,7 +26,7 @@ export const Header = () => {
   }, []);
 
   return (
-    <header className={`${s.container} ${isPlaylistPage ? s.transparent : ""}`}>
+    <header className={s.container}>
       {data && (
         <div className={s.loginContainer} ref={dropdownRef}>
           <button
