@@ -14,6 +14,7 @@ import type {
   FetchPlaylistsArgs,
   PlaylistCreatedEvent,
   PlaylistData,
+  PlaylistReactionResponse,
   PlaylistsResponse,
   PlaylistUpdatedEvent,
   UpdatePlaylistArgs,
@@ -200,6 +201,20 @@ export const playlistsApi = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Playlist"],
       }),
+      likePlaylist: build.mutation<PlaylistReactionResponse, string>({
+        query: (playlistId) => ({
+          method: "post",
+          url: `/playlists/${playlistId}/likes`,
+        }),
+        invalidatesTags: ["Playlist"],
+      }),
+      dislikePlaylist: build.mutation<PlaylistReactionResponse, string>({
+        query: (playlistId) => ({
+          method: "post",
+          url: `/playlists/${playlistId}/dislikes`,
+        }),
+        invalidatesTags: ["Playlist"],
+      }),
     };
   },
 });
@@ -212,4 +227,6 @@ export const {
   useUpdatePlaylistMutation,
   useUploadPlaylistCoverMutation,
   useDeletePlaylistCoverMutation,
+  useLikePlaylistMutation,
+  useDislikePlaylistMutation,
 } = playlistsApi;

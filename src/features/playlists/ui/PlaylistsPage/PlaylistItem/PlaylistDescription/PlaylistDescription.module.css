@@ -1,5 +1,5 @@
 .container {
-  padding: 12px 0;
+  padding-top: 12px;
 }
 
 .title {
@@ -29,7 +29,32 @@
   margin-bottom: 4px;
 }
 
+.reactions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.reactionBtn {
+  color: var(--text-disabled);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.reactionBtn:hover {
+  color: var(--text-primary);
+}
+
+.reactionBtn.active {
+  color: var(--accent-primary);
+}
+
 .likes {
   font-size: 14px;
   color: var(--text-disabled);
+  margin-top: 4px;
 }

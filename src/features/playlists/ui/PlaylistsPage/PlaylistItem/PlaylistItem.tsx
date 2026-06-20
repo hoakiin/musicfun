@@ -13,7 +13,7 @@ export const PlaylistItem = ({
   return (
     <Link to={`/playlists/${playlist.id}`}>
       <PlaylistCover images={playlist.attributes.images} />
-      <PlaylistDescription attributes={playlist.attributes} />
+      <PlaylistDescription id={playlist.id} attributes={playlist.attributes} />
     </Link>
   );
 };

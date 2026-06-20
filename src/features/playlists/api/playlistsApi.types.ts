@@ -37,6 +37,13 @@ export type UpdatePlaylistArgs = {
   tagIds: string[];
 };
 
+export type PlaylistReactionResponse = {
+  objectId: string
+  value: number
+  likes: number
+  dislikes: number
+}
+
 // WebSocket Events
 export type PlaylistCreatedEvent = {
   type: 'tracks.playlist-created'
