@@ -27,6 +27,7 @@ export const Routing = () => (
     <Route path={Path.Playlists} element={<PlaylistsPage />} />
     <Route path={Path.Tracks} element={<TracksPage />} />
     <Route path={Path.Profile} element={<ProfilePage />} />
+    <Route path={Path.Library} element={<ProfilePage />} />
      <Route path={Path.OAuthRedirect} element={<OAuthCallback />} />
     <Route path={Path.NotFound} element={<PageNotFound />} />
   </Routes>
