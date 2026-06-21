@@ -1,5 +1,5 @@
 import { baseApi } from "@/app/api/baseApi";
-import type { FetchTracksArgs, FetchTracksResponse } from "./tracksApi.types";
+import type { FetchTracksArgs, FetchTracksResponse, TrackReactionResponse } from "./tracksApi.types";
 import { withZodCatch } from "@/common/utils";
 import { fetchTracksResponseSchema } from "../model/tracks.schemas";
 
@@ -17,16 +17,29 @@ export const tracksApi = baseApi.injectEndpoints({
         params: {
           cursor: pageParam,
           paginationType: "cursor",
-          pageSize: 5,
+          pageSize: queryArg.pageSize ?? 5,
           search: queryArg.search,
           sortBy: queryArg.sortBy,
           sortDirection: queryArg.sortDirection,
           tagsIds: queryArg.tagsIds?.join(","),
           artistsIds: queryArg.artistsIds?.join(","),
+          userId: queryArg.userId,
         },
       }),
       ...withZodCatch(fetchTracksResponseSchema)
     }),
+    likeTrack: build.mutation<TrackReactionResponse, string>({
+      query: (trackId) => ({
+        method: "post",
+        url: `/playlists/tracks/${trackId}/likes`,
+      }),
+    }),
+    dislikeTrack: build.mutation<TrackReactionResponse, string>({
+      query: (trackId) => ({
+        method: "post",
+        url: `/playlists/tracks/${trackId}/dislikes`,
+      }),
+    }),
   }),
 });
-export const { useFetchTracksInfiniteQuery } = tracksApi;
+export const { useFetchTracksInfiniteQuery, useLikeTrackMutation, useDislikeTrackMutation } = tracksApi;

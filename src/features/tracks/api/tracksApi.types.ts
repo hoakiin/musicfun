@@ -9,6 +9,12 @@ export type TracksIncluded = z.infer<typeof tracksIncludedSchema>
 export type TracksMeta = z.infer<typeof tracksMetaSchema>
 export type FetchTracksResponse = z.infer<typeof fetchTracksResponseSchema>
  
+export type TrackReactionResponse = {
+  objectId: string
+  value: number
+  likes: number
+}
+
 // Arguments
 export type FetchTracksArgs = {
   pageNumber?: number

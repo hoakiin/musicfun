@@ -33,6 +33,7 @@ export const trackAttributesSchema = z.object({
   isPublished: z.boolean(),
   publishedAt: z.iso.datetime(),
   duration: z.number().int().nonnegative(),
+  likesCount: z.number().int().nonnegative(),
 })
  
 export const tracksMetaSchema = z.object({
