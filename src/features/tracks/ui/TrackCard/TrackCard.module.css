@@ -1,0 +1,77 @@
+.card {
+  width: 128px;
+  height: 231px;
+  padding: 8px;
+  background: var(--bg-card);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.coverWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.cover {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+}
+
+.body {
+  padding-top: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.authors {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reactions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: auto;
+}
+
+.reactionBtn {
+  color: var(--text-disabled);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.reactionBtn:hover {
+  color: var(--text-primary);
+}
+
+.reactionBtn.active {
+  color: var(--accent-primary);
+}
+
+.likesCount {
+  font-size: 12px;
+  color: var(--text-disabled);
+  margin-left: 4px;
+}
