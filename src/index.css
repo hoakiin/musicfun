@@ -19,7 +19,10 @@ body {
   line-height: 1.5;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  background: var(--gradient-main);
+  background-color: #121212;
+  background-image: var(--gradient-main);
+  background-repeat: no-repeat;
+  background-size: 100% 1000px;
 }
 
 img,
