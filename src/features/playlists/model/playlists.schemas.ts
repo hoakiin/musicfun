@@ -67,3 +67,64 @@ export const playlistCreateResponseSchema = z.object({
 export const playlistResponseSchema = z.object({
   data: playlistDataSchema,
 });
+
+// --- Playlist Tracks ---
+
+export const playlistTrackAttachmentSchema = z.object({
+  id: z.string(),
+  addedAt: z.iso.datetime(),
+  updatedAt: z.iso.datetime(),
+  version: z.int().nonnegative(),
+  url: z.string(),
+  contentType: z.string(),
+  originalName: z.string(),
+  fileSize: z.int().nonnegative(),
+});
+
+export const playlistTrackRelationshipsSchema = z.object({
+  artists: z.object({
+    data: z.array(
+      z.object({
+        id: z.string(),
+        type: z.literal("artists"),
+      }),
+    ),
+  }),
+});
+
+export const playlistTrackAttributesSchema = z.object({
+  title: z.string(),
+  order: z.number().int(),
+  addedAt: z.iso.datetime(),
+  updatedAt: z.iso.datetime(),
+  attachments: z.array(playlistTrackAttachmentSchema),
+  images: imagesSchema,
+  currentUserReaction: currentUserReactionSchema,
+  publishedAt: z.iso.datetime().nullable(),
+  duration: z.number().int().nonnegative(),
+});
+
+export const playlistTrackDataSchema = z.object({
+  id: z.string(),
+  type: z.literal("tracks"),
+  attributes: playlistTrackAttributesSchema,
+  relationships: playlistTrackRelationshipsSchema,
+});
+
+export const playlistTracksIncludedSchema = z.object({
+  id: z.string(),
+  type: z.string(),
+  attributes: z.object({
+    name: z.string(),
+  }),
+});
+
+export const playlistTracksMetaSchema = z.object({
+  totalCount: z.number().int().nonnegative(),
+});
+
+export const fetchPlaylistTracksResponseSchema = z.object({
+  data: z.array(playlistTrackDataSchema),
+  meta: playlistTracksMetaSchema,
+  included: z.array(playlistTracksIncludedSchema),
+});

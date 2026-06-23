@@ -8,10 +8,12 @@ import {
   playlistCreateResponseSchema,
   playlistResponseSchema,
   playlistsResponseSchema,
+  fetchPlaylistTracksResponseSchema,
 } from "../model/playlists.schemas";
 import type {
   CreatePlaylistFormValues,
   FetchPlaylistsArgs,
+  FetchPlaylistTracksResponse,
   PlaylistCreatedEvent,
   PlaylistData,
   PlaylistReactionResponse,
@@ -88,6 +90,17 @@ export const playlistsApi = baseApi.injectEndpoints({
           url: `/playlists/${playlistId}`,
         }),
         ...withZodCatch(playlistResponseSchema),
+        providesTags: ["Playlist"],
+      }),
+      fetchPlaylistTracks: build.query<
+        FetchPlaylistTracksResponse,
+        { playlistId: string; pageNumber?: number; pageSize?: number }
+      >({
+        query: ({ playlistId, ...params }) => ({
+          url: `/playlists/${playlistId}/tracks`,
+          params,
+        }),
+        ...withZodCatch(fetchPlaylistTracksResponseSchema),
         providesTags: ["Playlist"],
       }),
       createPlaylist: build.mutation<
@@ -222,6 +235,7 @@ export const playlistsApi = baseApi.injectEndpoints({
 export const {
   useFetchPlaylistsQuery,
   useFetchPlaylistQuery,
+  useFetchPlaylistTracksQuery,
   useCreatePlaylistMutation,
   useDeletePlaylistMutation,
   useUpdatePlaylistMutation,

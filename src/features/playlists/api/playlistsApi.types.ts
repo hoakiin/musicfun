@@ -7,6 +7,11 @@ import type {
   playlistDataSchema,
   playlistsResponseSchema,
   createPlaylistSchema,
+  playlistTrackAttributesSchema,
+  playlistTrackDataSchema,
+  playlistTracksIncludedSchema,
+  playlistTracksMetaSchema,
+  fetchPlaylistTracksResponseSchema,
 } from "../model/playlists.schemas";
 
 export type PlaylistMeta = z.infer<typeof playlistMetaSchema>;
@@ -58,3 +63,14 @@ export type PlaylistUpdatedEvent = {
     data: PlaylistData
   }
 }
+
+export type PlaylistTrackAttributes = z.infer<typeof playlistTrackAttributesSchema>;
+export type PlaylistTrackData = z.infer<typeof playlistTrackDataSchema>;
+export type PlaylistTracksIncluded = z.infer<typeof playlistTracksIncludedSchema>;
+export type PlaylistTracksMeta = z.infer<typeof playlistTracksMetaSchema>;
+export type FetchPlaylistTracksResponse = z.infer<typeof fetchPlaylistTracksResponseSchema>;
+
+export type FetchPlaylistTracksArgs = {
+  pageNumber?: number;
+  pageSize?: number;
+};

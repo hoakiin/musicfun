@@ -1,62 +1,60 @@
-import defaultCover from "@/assets/images/default-playlist-cover.png";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useFetchPlaylistQuery } from "../../api/playlistsApi";
+import { TracksList } from "@/features/tracks/ui/TracksPage/TracksList/TracksList";
+import { useAppSelector } from "@/app/model/store";
+import { selectCurrentTrack } from "@/features/player/model/playerSlice";
+import { triggerPlay, triggerTogglePlay } from "@/features/player/lib/playController";
+import { playerStore } from "@/features/player/lib/playerStore";
+import { usePlaylistTracks } from "./usePlaylistTracks";
+import { PlaylistHeader } from "./PlaylistHeader/PlaylistHeader";
 import s from "./PlaylistPage.module.css";
-import { formatDuration } from "@/common/utils";
 
 export const PlaylistPage = () => {
+  const currentTrack = useAppSelector(selectCurrentTrack);
+  const [isPlaying, setIsPlaying] = useState(false);
   const { playlistId } = useParams<{ playlistId: string }>();
-  const { data, isLoading } = useFetchPlaylistQuery(playlistId!, {
+  const { data: playlistData, isLoading: playlistLoading } = useFetchPlaylistQuery(playlistId!, {
     skip: !playlistId,
   });
+  const { tracksAsTrackData, tracksLoading } = usePlaylistTracks(playlistId);
 
-  if (isLoading || !data) {
+  useEffect(() => {
+    const unsub = playerStore.subscribe(() => {
+      setIsPlaying(playerStore.isPlaying);
+    });
+    return unsub;
+  }, []);
+
+  const handlePlay = () => {
+    const firstTrack = tracksAsTrackData[0];
+    if (!firstTrack) return;
+    if (currentTrack?.id === firstTrack.id) {
+      triggerTogglePlay();
+    } else {
+      triggerPlay(firstTrack);
+    }
+  };
+
+  const isFirstTrackActive = currentTrack?.id === tracksAsTrackData[0]?.id;
+  const showPause = isFirstTrackActive && isPlaying;
+
+  if (playlistLoading || !playlistData) {
     return <h1>Loading...</h1>;
   }
 
-  const { attributes } = data.data;
-  const originalCover = attributes.images.main?.find(
-    (img) => img.type === "original",
-  );
-  const coverSrc = originalCover?.url || defaultCover;
-
   return (
     <div className={s.container}>
-      <div className={s.header}>
-        <img src={coverSrc} alt={attributes.title} className={s.cover} />
+      <PlaylistHeader
+        playlist={playlistData.data}
+        hasTracks={tracksAsTrackData.length > 0}
+        showPause={showPause}
+        onPlay={handlePlay}
+      />
 
-        <div className={s.info}>
-          {attributes.tags.length > 0 && (
-            <div className={s.tags}>
-              {attributes.tags.map((tag) => (
-                <span key={tag.id} className={s.tag}>
-                  #{tag.name}
-                </span>
-              ))}
-            </div>
-          )}
+      {tracksLoading && <p>Loading tracks...</p>}
 
-          <h1 className={s.title}>{attributes.title}</h1>
-
-          {attributes.description && (
-            <p className={s.description}>{attributes.description}</p>
-          )}
-
-          <div className={s.meta}>
-            <span>
-              Made for{" "}
-              <span className={s.userName}>{attributes.user.name}</span>
-            </span>
-            <span className={s.dot}>&middot;</span>
-            <span>
-              {attributes.tracksCount}{" "}
-              {attributes.tracksCount === 1 ? "track" : "tracks"}
-            </span>
-            <span className={s.dot}>&middot;</span>
-            <span>{formatDuration(attributes.duration)}</span>
-          </div>
-        </div>
-      </div>
+      {tracksAsTrackData.length > 0 && <TracksList tracks={tracksAsTrackData} />}
     </div>
   );
 };
