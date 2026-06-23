@@ -4,7 +4,8 @@ const HOUR = 60 * MINUTE
 const DAY = 24 * HOUR
 const MONTH = 30 * DAY
 
-export const formatRelativeDate = (dateString: string) => {
+export const formatRelativeDate = (dateString: string | null) => {
+  if (!dateString) return ""
   const now = Date.now()
   const diff = now - new Date(dateString).getTime()
 

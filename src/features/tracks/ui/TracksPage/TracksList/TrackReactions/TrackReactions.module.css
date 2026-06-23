@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--text-disabled);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.count {
+  font-size: 11px;
+  line-height: 1;
+  color: var(--text-secondary);
+}
+
+.btn:hover {
+  color: var(--text-primary);
+}
+
+.btn.liked {
+  color: var(--accent-primary);
+}
+
+.btn.disliked {
+  color: var(--accent-primary);
+}

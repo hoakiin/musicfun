@@ -31,7 +31,7 @@ export const trackAttributesSchema = z.object({
   currentUserReaction: currentUserReactionSchema,
   user: userSchema,
   isPublished: z.boolean(),
-  publishedAt: z.iso.datetime(),
+  publishedAt: z.iso.datetime().nullable(),
   duration: z.number().int().nonnegative(),
   likesCount: z.number().int().nonnegative(),
 })
