@@ -40,10 +40,8 @@ export const PlayerBar = () => {
       if (repeatRef.current === "one" && currentTrackRef.current) {
         const url = currentTrackRef.current.attributes.attachments[0]?.url;
         if (url) playRef.current(url);
-      } else if (repeatRef.current === "all") {
-        nextRef.current();
       } else {
-        dispatch(setTrack(null));
+        nextRef.current();
       }
     };
 
@@ -131,11 +129,11 @@ export const PlayerBar = () => {
               <button className={s.skipBtn} onClick={prev} title="Previous">
                 <Icon iconId="prev" width="20" height="20" viewBox="0 0 32 32" />
               </button>
-              <button className={s.playBtn} onClick={handlePlayToggle}>
+              <button className={`${s.playBtn} ${isPlaying ? s.playing : ''}`} onClick={handlePlayToggle}>
                 {isPlaying ? (
-                  <Icon iconId="pause" width="30" height="30" viewBox="0 0 40 40" />
+                  <Icon iconId="pause" width="36" height="36" viewBox="0 0 40 40" />
                 ) : (
-                  <Icon iconId="play" width="30" height="30" viewBox="0 0 40 40" />
+                  <Icon iconId="play" width="36" height="36" viewBox="0 0 40 40" />
                 )}
               </button>
               <button className={s.skipBtn} onClick={next} title="Next">
