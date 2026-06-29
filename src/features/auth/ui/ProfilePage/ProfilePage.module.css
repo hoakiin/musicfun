@@ -85,6 +85,26 @@
   width: 100%;
 }
 
+.createBtn {
+  margin-bottom: 32px;
+  margin-inline: auto;
+  padding: 14px 0px;
+  width: 328px;;
+  background: var(--accent-primary);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  transition: background var(--transition-base);
+}
+
+.createBtn:hover {
+  background: var(--accent-hover);
+}
+
 .empty {
   text-align: center;
   color: var(--text-disabled);

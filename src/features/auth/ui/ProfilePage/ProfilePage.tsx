@@ -5,7 +5,8 @@ import { useFetchPlaylistsQuery } from "@/features/playlists/api/playlistsApi";
 import { useFetchTracksInfiniteQuery } from "@/features/tracks/api/tracksApi";
 import { PlaylistsList } from "@/features/playlists/ui/PlaylistsPage/PlaylistList/PlaylistList";
 import { TracksList } from "@/features/tracks/ui/TracksPage/TracksList/TracksList";
-import { CreatePlaylistForm } from "@/features/playlists/ui/PlaylistsPage/CreatePlaylistForm/CreatePlaylistForm";
+import { CreatePlaylistModal } from "@/features/playlists/ui/PlaylistsPage/CreatePlaylistModal/CreatePlaylistModal";
+import { UploadTrackModal } from "@/features/tracks/ui/UploadTrackModal/UploadTrackModal";
 import { Path } from "@/common/routing";
 import s from "./ProfilePage.module.css";
 
@@ -20,6 +21,8 @@ const TABS: { key: Tab; label: string }[] = [
 
 export const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState<Tab>("my-playlists");
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [uploadTrackOpen, setUploadTrackOpen] = useState(false);
   const { data: meResponse, isLoading: isMeLoading } = useGetMeQuery();
 
   const { data: playlistsResponse, isLoading: isPlaylistsLoading } =
@@ -44,13 +47,31 @@ export const ProfilePage = () => {
     switch (activeTab) {
       case "my-playlists":
         return (
-          <PlaylistsList
-            isPlaylistsLoading={isPlaylistsLoading || isMeLoading}
-            playlists={playlistsResponse?.data || []}
-          />
+          <>
+            <button
+              className={s.createBtn}
+              onClick={() => setCreateModalOpen(true)}
+            >
+              Create a playlist
+            </button>
+            <PlaylistsList
+              isPlaylistsLoading={isPlaylistsLoading || isMeLoading}
+              playlists={playlistsResponse?.data || []}
+            />
+          </>
         );
       case "my-tracks":
-        return <TracksList tracks={tracks} />;
+        return (
+          <>
+            <button
+              className={s.createBtn}
+              onClick={() => setUploadTrackOpen(true)}
+            >
+              Upload track
+            </button>
+            <TracksList tracks={tracks} />
+          </>
+        );
       case "liked-playlists":
         return <p className={s.empty}>No liked playlists yet</p>;
       case "liked-tracks":
@@ -91,7 +112,17 @@ export const ProfilePage = () => {
 
       <div className={s.content}>{renderContent()}</div>
 
-      <CreatePlaylistForm />
+      <CreatePlaylistModal
+        open={createModalOpen}
+        onClose={() => setCreateModalOpen(false)}
+      />
+
+      <UploadTrackModal
+        open={uploadTrackOpen}
+        onClose={() => setUploadTrackOpen(false)}
+      />
+
+      
     </div>
   );
 };
