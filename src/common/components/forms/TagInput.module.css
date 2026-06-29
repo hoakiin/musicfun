@@ -1,0 +1,68 @@
+.container {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px;
+  background: #2b2b2b;
+  border: 1px solid #505050;
+  border-radius: 2px;
+  cursor: text;
+}
+
+.chip {
+  height: 24px;
+  padding: 0 10px;
+  background: transparent;
+  border: 1px solid #8a8a8a;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: white;
+}
+
+.removeBtn {
+  all: unset;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #666;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  color: white;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.removeBtn:hover {
+  background: #888;
+}
+
+.input {
+  flex: 1;
+  min-width: 100px;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 13px;
+  padding: 2px 0;
+}
+
+.input::placeholder {
+  color: #a3a3a3;
+}
+
+.counter {
+  display: block;
+  text-align: right;
+  font-size: 12px;
+  color: #8a8a8a;
+  margin-top: 4px;
+}

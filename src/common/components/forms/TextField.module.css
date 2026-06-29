@@ -1,0 +1,38 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 400;
+  color: #8a8a8a;
+}
+
+.input {
+  height: 36px;
+  width: 100%;
+  background: #2b2b2b;
+  border: 1px solid #505050;
+  border-radius: 2px;
+  padding: 0 12px;
+  font-size: 14px;
+  color: white;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #a3a3a3;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+}
+
+.error {
+  font-size: 12px;
+  color: var(--error);
+  margin-top: 2px;
+}

@@ -1,0 +1,40 @@
+.preview {
+  width: 180px;
+  height: 180px;
+  background: black;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.placeholder {
+  color: #555;
+  font-size: 32px;
+}
+
+.uploadBtn {
+  display: block;
+  width: 180px;
+  height: 34px;
+  border: none;
+  border-radius: 18px;
+  background: #2a2a2a;
+  font-size: 13px;
+  color: white;
+  cursor: pointer;
+  margin: 12px auto 0;
+}
+
+.uploadBtn:hover {
+  background: #353535;
+}

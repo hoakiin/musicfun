@@ -1,0 +1,40 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 400;
+  color: #8a8a8a;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 72px;
+  resize: none;
+  background: #2b2b2b;
+  border: 1px solid #505050;
+  border-radius: 2px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: white;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.textarea::placeholder {
+  color: #a3a3a3;
+}
+
+.textarea:focus {
+  border-color: #3b82f6;
+}
+
+.error {
+  font-size: 12px;
+  color: var(--error);
+  margin-top: 2px;
+}
