@@ -1,0 +1,54 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #808080;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.cancelBtn {
+  width: 120px;
+  height: 40px;
+  background: #333333;
+  border: none;
+  border-radius: 18px;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+}
+
+.cancelBtn:hover {
+  background: #3c3c3c;
+}
+
+.saveBtn {
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 18px;
+  background: #ff1f8f;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+}
+
+.saveBtn:hover {
+  background: #ff0a82;
+}

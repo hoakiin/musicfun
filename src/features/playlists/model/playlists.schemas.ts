@@ -14,6 +14,7 @@ export const createPlaylistSchema = z.object({
   description: z
     .string()
     .max(1000, "The description length must be less than 1000 characters."),
+  tagIds: z.array(z.string()).optional(),
 });
 
 export const playlistMetaSchema = z.object({

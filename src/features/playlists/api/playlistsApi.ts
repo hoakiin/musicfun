@@ -14,7 +14,6 @@ import type {
   CreatePlaylistFormValues,
   FetchPlaylistsArgs,
   FetchPlaylistTracksResponse,
-  PlaylistCreatedEvent,
   PlaylistData,
   PlaylistReactionResponse,
   PlaylistsResponse,
@@ -44,20 +43,6 @@ export const playlistsApi = baseApi.injectEndpoints({
           await cacheDataLoaded;
 
           const unsubscribes = [
-            subscribeToEvent<PlaylistCreatedEvent>(
-              SOCKET_EVENTS.PLAYLIST_CREATED,
-              (msg) => {
-                const newPlaylist = msg.payload.data;
-                updateCachedData((state) => {
-                  state.data.pop();
-                  state.data.unshift(newPlaylist);
-                  state.meta.totalCount = state.meta.totalCount + 1;
-                  state.meta.pagesCount = Math.ceil(
-                    state.meta.totalCount / state.meta.pageSize,
-                  );
-                });
-              },
-            ),
             subscribeToEvent<PlaylistUpdatedEvent>(
               SOCKET_EVENTS.PLAYLIST_UPDATED,
               (msg) => {
@@ -66,7 +51,7 @@ export const playlistsApi = baseApi.injectEndpoints({
                   const index = state.data.findIndex(
                     (playlist) => playlist.id === newPlaylist.id,
                   );
-                  if (index !== 1) {
+                  if (index !== -1) {
                     state.data[index] = {
                       ...state.data[index],
                       ...newPlaylist,
