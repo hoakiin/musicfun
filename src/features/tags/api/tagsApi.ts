@@ -1,5 +1,7 @@
 import { baseApi } from "@/app/api/baseApi";
 import type {
+  CreateTagRequestPayload,
+  CreateTagResponse,
   SearchTagsParams,
   SearchTagsResponse,
   Tag,
@@ -20,7 +22,14 @@ export const tagsApi = baseApi.injectEndpoints({
         }));
       },
     }),
+    createTag: builder.mutation<CreateTagResponse, CreateTagRequestPayload>({
+      query: (body) => ({
+        method: "post",
+        url: "tags",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useSearchTagsQuery } = tagsApi;
+export const { useSearchTagsQuery, useCreateTagMutation } = tagsApi;
