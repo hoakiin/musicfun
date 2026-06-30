@@ -194,7 +194,7 @@
 .tag {
   padding: 6px 19px;
   border-radius: 16px;
-  background-color: var(--bg-app);
+  background-color: var(--bg-tag);
   font-size: 13px;
   color: var(--text-primary);
 }
