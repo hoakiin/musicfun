@@ -1,6 +1,9 @@
+import { useState, useRef } from 'react'
 import type { TrackData } from '../../../../api/tracksApi.types'
 import { TrackCover } from '../TrackCover/TrackCover'
 import { TrackReactions } from '../TrackReactions/TrackReactions'
+import { Icon } from '@/common/components/Icon/Icon'
+import { useClickOutside } from '@/common/hooks'
 import { formatRelativeDate, formatDuration } from '@/common/utils'
 import s from './TrackRow.module.css'
 
@@ -9,10 +12,13 @@ type Props = {
   index: number
   isCurrentTrack: boolean
   reaction: number
+  likesCount: number
   progress: { currentTime: number; duration: number; isPlaying: boolean }
   onClick: () => void
   onLike: () => void
   onDislike: () => void
+  onEdit: () => void
+  onAddToPlaylist: () => void
 }
 
 export const TrackRow = ({
@@ -20,11 +26,35 @@ export const TrackRow = ({
   index,
   isCurrentTrack,
   reaction,
+  likesCount,
   progress,
   onClick,
   onLike,
   onDislike,
+  onEdit,
+  onAddToPlaylist,
 }: Props) => {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+  useClickOutside(menuRef, () => setMenuOpen(false))
+
+  const handleMenuClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setMenuOpen((prev) => !prev)
+  }
+
+  const handleEdit = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    onEdit()
+  }
+
+  const handleAddToPlaylist = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    onAddToPlaylist()
+  }
+
   const { title, user, publishedAt, images, duration: trackDuration } = track.attributes
 
   return (
@@ -63,13 +93,28 @@ export const TrackRow = ({
 
       <span className={s.colDate}>{formatRelativeDate(publishedAt)}</span>
 
-      <div className={s.colReactions}>
+      <div className={s.colReactions} ref={menuRef}>
         <TrackReactions
           reaction={reaction}
-          likesCount={track.attributes.likesCount}
+          likesCount={likesCount}
           onLike={onLike}
           onDislike={onDislike}
         />
+        <button className={s.menuBtn} onClick={handleMenuClick}>
+          &#8230;
+        </button>
+        {menuOpen && (
+          <div className={s.dropdown}>
+            <button className={s.dropdownItem} onClick={handleEdit}>
+              <Icon iconId="edit" width="16" height="16" viewBox="0 0 32 32" />
+              Edit
+            </button>
+            <button className={s.dropdownItem} onClick={handleAddToPlaylist}>
+              <Icon iconId="add-to-playlist" width="16" height="16" viewBox="0 0 32 32" />
+              Add to Playlist
+            </button>
+          </div>
+        )}
       </div>
 
       <span className={s.colTime}>{formatDuration(trackDuration)}</span>
