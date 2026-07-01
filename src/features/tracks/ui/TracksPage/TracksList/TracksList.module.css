@@ -1,5 +1,5 @@
 .table {
-  --grid-tracks-cols: 20px 250px 1fr 140px 80px 80px;
+  --grid-tracks-cols: 20px 250px 1fr 140px 120px 80px;
   display: flex;
   flex-direction: column;
 }
