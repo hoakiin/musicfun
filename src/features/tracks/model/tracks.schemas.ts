@@ -59,6 +59,10 @@ export const trackDataSchema = z.object({
   relationships: trackRelationshipsSchema,
 })
  
+export const trackDetailsResponseSchema = z.object({
+  data: trackDataSchema,
+})
+
 export const fetchTracksResponseSchema = z.object({
   data: z.array(trackDataSchema),
   included: z.array(tracksIncludedSchema),
