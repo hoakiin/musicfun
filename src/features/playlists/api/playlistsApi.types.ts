@@ -34,6 +34,7 @@ export type FetchPlaylistsArgs = {
   tagsIds?: string[];
   userId?: string;
   trackId?: string;
+  onlyLikedByMe?: boolean;
 };
 
 export type UpdatePlaylistArgs = {

@@ -36,12 +36,25 @@ export const ProfilePage = () => {
     { skip: !meResponse?.userId },
   );
 
+  const { data: likedPlaylistsResponse, isLoading: isLikedPlaylistsLoading } =
+    useFetchPlaylistsQuery(
+      { onlyLikedByMe: true },
+      { skip: !meResponse?.userId },
+    );
+
+  const { data: likedTracksResponse } = useFetchTracksInfiniteQuery(
+    { onlyLikedByMe: true },
+    { skip: !meResponse?.userId },
+  );
+
   if (isPlaylistsLoading || isMeLoading) return <h1>Skeleton loader...</h1>;
   if (!isMeLoading && !meResponse) return <Navigate to={Path.Playlists} />;
 
   const tracks = tracksResponse?.pages.flatMap((page) => page.data) || [];
   const tracksCount =
     tracksResponse?.pages[0]?.meta.totalCount ?? tracks.length;
+
+  const likedTracks = likedTracksResponse?.pages.flatMap((page) => page.data) || [];
 
   const renderContent = () => {
     switch (activeTab) {
@@ -73,9 +86,14 @@ export const ProfilePage = () => {
           </>
         );
       case "liked-playlists":
-        return <p className={s.empty}>No liked playlists yet</p>;
+        return (
+          <PlaylistsList
+            isPlaylistsLoading={isLikedPlaylistsLoading || isMeLoading}
+            playlists={likedPlaylistsResponse?.data || []}
+          />
+        );
       case "liked-tracks":
-        return <p className={s.empty}>No liked tracks yet</p>;
+        return <TracksList tracks={likedTracks} />;
     }
   };
 

@@ -34,4 +34,5 @@ export type FetchTracksArgs = {
   includeDrafts?: boolean
   paginationType?: 'offset' | 'cursor'
   cursor?: string
+  onlyLikedByMe?: boolean
 }
