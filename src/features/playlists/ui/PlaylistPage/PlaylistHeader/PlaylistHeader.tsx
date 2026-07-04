@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import defaultCover from "@/assets/images/default-playlist-cover.png";
 import { Icon } from "@/common/components/Icon/Icon";
 import { ModalRadix } from "@/common/components/ModalRadix/ModalRadix";
@@ -193,7 +193,7 @@ export const PlaylistHeader = ({
 
         <div className={s.meta}>
           <span>
-            Made for <span className={s.userName}>{attributes.user.name}</span>
+            Made for <Link to={"/user/" + attributes.user.id} className={s.userName}>{attributes.user.name}</Link>
           </span>
           <span className={s.dot}>&middot;</span>
           <span>

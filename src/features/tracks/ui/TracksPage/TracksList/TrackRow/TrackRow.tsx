@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { Link } from 'react-router'
 import type { TrackData } from '../../../../api/tracksApi.types'
 import { TrackCover } from '../TrackCover/TrackCover'
 import { TrackReactions } from '../TrackReactions/TrackReactions'
@@ -71,7 +72,7 @@ export const TrackRow = ({
         <div className={s.info}>
           <h3 className={s.title}>{title.length > 25 ? `${title.slice(0, 25)}...` : title}</h3>
           <p className={s.subtitle}>
-            <span className={s.userName}>{user.name}</span>
+            <Link to={"/user/" + user.id} className={s.userName} onClick={(e) => e.stopPropagation()}>{user.name}</Link>
           </p>
         </div>
       </div>

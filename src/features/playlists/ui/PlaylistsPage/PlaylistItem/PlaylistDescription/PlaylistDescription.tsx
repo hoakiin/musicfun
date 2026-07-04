@@ -6,6 +6,7 @@ import {
 } from "@/features/playlists/api/playlistsApi";
 import type { PlaylistListAttributes } from "@/features/playlists/api/playlistsApi.types";
 import { useState } from "react";
+import { Link } from "react-router";
 import s from "./PlaylistDescription.module.css";
 import { formatRelativeDate } from "@/common/utils";
 
@@ -47,7 +48,7 @@ export const PlaylistDescription = ({ id, attributes }: Props) => {
     <div className={s.container}>
       <h3 className={s.title}>{attributes.title}</h3>
       <p className={s.subtitle}>
-        Made for <span className={s.userName}>{attributes.user.name}</span>
+        Made for <Link to={"/user/" + attributes.user.id} className={s.userName} onClick={(e) => e.stopPropagation()}>{attributes.user.name}</Link>
       </p>
       <p className={s.stats}>
         {attributes.tracksCount} Tracks · Created{" "}

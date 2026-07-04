@@ -129,6 +129,11 @@
 
 .userName {
   color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.userName:hover {
+  text-decoration: underline;
 }
 
 .progressBar {
