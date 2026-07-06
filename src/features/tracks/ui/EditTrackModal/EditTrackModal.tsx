@@ -64,6 +64,10 @@ export const EditTrackModal = ({ open, track, onClose }: Props) => {
       promises.push(
         uploadTrackCover({ trackId: track.id, file: data.cover }).unwrap()
       );
+    } else if (currentCover) {
+      promises.push(
+        deleteTrackCover({ trackId: track.id }).unwrap()
+      );
     }
 
     Promise.all(promises).then(() => {

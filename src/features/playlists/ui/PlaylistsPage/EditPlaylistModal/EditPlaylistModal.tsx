@@ -6,6 +6,7 @@ import {
   useFetchPlaylistQuery,
   useUpdatePlaylistMutation,
   useUploadPlaylistCoverMutation,
+  useDeletePlaylistCoverMutation,
 } from "@/features/playlists/api/playlistsApi";
 import { tagsApi } from "@/features/tags/api/tagsApi";
 import { CoverUpload, TextField, TagInput } from "@/common/components/forms";
@@ -28,6 +29,7 @@ export const EditPlaylistModal = ({ open, playlistId, onClose }: Props) => {
   const { data } = useFetchPlaylistQuery(playlistId, { skip: !open });
   const [updatePlaylist] = useUpdatePlaylistMutation();
   const [uploadPlaylistCover] = useUploadPlaylistCoverMutation();
+  const [deletePlaylistCover] = useDeletePlaylistCoverMutation();
   const [modifiedTags, setModifiedTags] = useState<string[] | null>(null);
 
   const existingTags = data?.data.attributes.tags ?? [];
@@ -99,6 +101,8 @@ export const EditPlaylistModal = ({ open, playlistId, onClose }: Props) => {
 
       if (cover) {
         await uploadPlaylistCover({ playlistId, file: cover }).unwrap();
+      } else if (currentCover) {
+        await deletePlaylistCover({ playlistId }).unwrap();
       }
 
       onClose();

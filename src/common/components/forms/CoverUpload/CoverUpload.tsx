@@ -42,6 +42,14 @@ export const CoverUpload = ({ currentCover, onChange }: Props) => {
     onChange?.(file);
   };
 
+  const handleRemove = () => {
+    if (preview?.startsWith("blob:")) {
+      URL.revokeObjectURL(preview);
+    }
+    setPreview(null);
+    onChange?.(null);
+  };
+
   return (
     <div>
       <input
@@ -69,6 +77,16 @@ export const CoverUpload = ({ currentCover, onChange }: Props) => {
       >
         Upload Cover Image
       </button>
+
+      {preview && (
+        <button
+          type="button"
+          onClick={handleRemove}
+          className={s.removeButton}
+        >
+          Remove cover
+        </button>
+      )}
     </div>
   );
 };
