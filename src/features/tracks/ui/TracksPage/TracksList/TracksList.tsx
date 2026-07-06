@@ -13,19 +13,21 @@ import { CurrentUserReaction } from '@/common/enums'
 import { TrackRow } from './TrackRow/TrackRow'
 import { EditTrackModal } from '../../EditTrackModal/EditTrackModal'
 import { AddToPlaylistModal } from '../../AddToPlaylistModal/AddToPlaylistModal'
-import { useFetchPlaylistsQuery } from '@/features/playlists/api/playlistsApi'
+import { useFetchPlaylistsQuery, useUnbindTrackFromPlaylistMutation } from '@/features/playlists/api/playlistsApi'
 import { useGetMeQuery } from '@/features/auth/api/authApi'
 import s from './TracksList.module.css'
 
 type Props = {
   tracks: TrackData[]
+  playlistId?: string
 }
 
-export const TracksList = ({ tracks }: Props) => {
+export const TracksList = ({ tracks, playlistId }: Props) => {
   const currentTrack = useAppSelector(selectCurrentTrack)
   const [likeTrack] = useLikeTrackMutation()
   const [dislikeTrack] = useDislikeTrackMutation()
   const [addTrackToPlaylist] = useAddTrackToPlaylistMutation()
+  const [unbindTrackFromPlaylist] = useUnbindTrackFromPlaylistMutation()
   const [reactions, setReactions] = useState<Record<string, number>>({})
   const [likesCounts, setLikesCounts] = useState<Record<string, number>>({})
   const [progress, setProgress] = useState({ currentTime: 0, duration: 0, isPlaying: false })
@@ -99,6 +101,11 @@ export const TracksList = ({ tracks }: Props) => {
     setTrackToAdd(null)
   }
 
+  const handleDeleteFromPlaylist = (trackId: string) => {
+    if (!playlistId) return
+    unbindTrackFromPlaylist({ playlistId, trackId })
+  }
+
   return (
     <>
       <div className={s.table}>
@@ -114,7 +121,6 @@ export const TracksList = ({ tracks }: Props) => {
         {tracks.map((track, index) => {
           const isCurrentTrack = currentTrack?.id === track.id
           const reaction = reactions[track.id] ?? track.attributes.currentUserReaction
-          const likesCount = likesCounts[track.id] ?? track.attributes.likesCount
 
           return (
             <TrackRow
@@ -123,13 +129,14 @@ export const TracksList = ({ tracks }: Props) => {
               index={index}
               isCurrentTrack={isCurrentTrack}
               reaction={reaction}
-              likesCount={likesCount}
               progress={progress}
               onClick={() => handleTrackClick(track)}
               onLike={() => handleLike(track.id, track.attributes.currentUserReaction)}
               onDislike={() => handleDislike(track.id, track.attributes.currentUserReaction)}
               onEdit={() => handleEdit(track)}
               onAddToPlaylist={() => handleStartAddToPlaylist(track)}
+              playlistId={playlistId}
+              onDeleteFromPlaylist={() => handleDeleteFromPlaylist(track.id)}
             />
           )
         })}

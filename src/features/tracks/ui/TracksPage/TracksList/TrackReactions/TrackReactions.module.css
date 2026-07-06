@@ -14,12 +14,6 @@
   transition: color 0.15s;
 }
 
-.count {
-  font-size: 11px;
-  line-height: 1;
-  color: var(--text-secondary);
-}
-
 .btn:hover {
   color: var(--text-primary);
 }

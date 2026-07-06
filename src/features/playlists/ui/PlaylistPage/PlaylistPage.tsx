@@ -54,7 +54,7 @@ export const PlaylistPage = () => {
 
       {tracksLoading && <p>Loading tracks...</p>}
 
-      {tracksAsTrackData.length > 0 && <TracksList tracks={tracksAsTrackData} />}
+      {tracksAsTrackData.length > 0 && <TracksList tracks={tracksAsTrackData} playlistId={playlistId} />}
     </div>
   );
 };

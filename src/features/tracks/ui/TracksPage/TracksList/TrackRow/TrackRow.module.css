@@ -108,6 +108,15 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
+.dropdownItem.danger {
+  color: #e74c3c;
+}
+
+.dropdownItem svg {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
 .info {
   min-width: 0;
 }

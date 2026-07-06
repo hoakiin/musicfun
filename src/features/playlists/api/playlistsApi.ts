@@ -213,6 +213,13 @@ export const playlistsApi = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Playlist"],
       }),
+      unbindTrackFromPlaylist: build.mutation<void, { playlistId: string; trackId: string }>({
+        query: ({ playlistId, trackId }) => ({
+          method: "delete",
+          url: `/playlists/${playlistId}/relationships/tracks/${trackId}`,
+        }),
+        invalidatesTags: ["Playlist"],
+      }),
     };
   },
 });
@@ -228,4 +235,5 @@ export const {
   useDeletePlaylistCoverMutation,
   useLikePlaylistMutation,
   useDislikePlaylistMutation,
+  useUnbindTrackFromPlaylistMutation,
 } = playlistsApi;

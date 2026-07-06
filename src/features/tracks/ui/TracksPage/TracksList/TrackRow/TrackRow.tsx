@@ -13,13 +13,14 @@ type Props = {
   index: number
   isCurrentTrack: boolean
   reaction: number
-  likesCount: number
   progress: { currentTime: number; duration: number; isPlaying: boolean }
   onClick: () => void
   onLike: () => void
   onDislike: () => void
   onEdit: () => void
   onAddToPlaylist: () => void
+  playlistId?: string
+  onDeleteFromPlaylist?: () => void
 }
 
 export const TrackRow = ({
@@ -27,13 +28,14 @@ export const TrackRow = ({
   index,
   isCurrentTrack,
   reaction,
-  likesCount,
   progress,
   onClick,
   onLike,
   onDislike,
   onEdit,
   onAddToPlaylist,
+  playlistId,
+  onDeleteFromPlaylist,
 }: Props) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -54,6 +56,12 @@ export const TrackRow = ({
     e.stopPropagation()
     setMenuOpen(false)
     onAddToPlaylist()
+  }
+
+  const handleDeleteFromPlaylist = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    onDeleteFromPlaylist?.()
   }
 
   const { title, user, publishedAt, images, duration: trackDuration } = track.attributes
@@ -97,7 +105,6 @@ export const TrackRow = ({
       <div className={s.colReactions} ref={menuRef}>
         <TrackReactions
           reaction={reaction}
-          likesCount={likesCount}
           onLike={onLike}
           onDislike={onDislike}
         />
@@ -107,13 +114,19 @@ export const TrackRow = ({
         {menuOpen && (
           <div className={s.dropdown}>
             <button className={s.dropdownItem} onClick={handleEdit}>
-              <Icon iconId="edit" width="16" height="16" viewBox="0 0 32 32" />
+              <Icon iconId="edit" width="26" height="26" viewBox="0 0 32 32" />
               Edit
             </button>
             <button className={s.dropdownItem} onClick={handleAddToPlaylist}>
-              <Icon iconId="add-to-playlist" width="16" height="16" viewBox="0 0 32 32" />
+              <Icon iconId="add-to-playlist" width="26" height="26" viewBox="0 0 32 32" />
               Add to Playlist
             </button>
+            {playlistId && (
+              <button className={`${s.dropdownItem} ${s.danger}`} onClick={handleDeleteFromPlaylist}>
+                <Icon iconId="delete" width="26" height="26" viewBox="0 0 24 24" />
+                Delete from Playlist
+              </button>
+            )}
           </div>
         )}
       </div>
