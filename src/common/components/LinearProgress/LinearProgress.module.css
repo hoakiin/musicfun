@@ -1,9 +1,12 @@
 .root {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  height: 4px;
   background: #23272f;
-  border-radius: 8px;
   overflow: hidden;
-  position: relative;
-  width: 100%;
 }
  
 .bar {
