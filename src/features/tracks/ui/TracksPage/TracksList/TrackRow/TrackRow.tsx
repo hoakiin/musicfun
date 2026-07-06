@@ -4,6 +4,7 @@ import type { TrackData } from '../../../../api/tracksApi.types'
 import { TrackCover } from '../TrackCover/TrackCover'
 import { TrackReactions } from '../TrackReactions/TrackReactions'
 import { Icon } from '@/common/components/Icon/Icon'
+import { useGetMeQuery } from '@/features/auth/api/authApi'
 import { useClickOutside } from '@/common/hooks'
 import { formatRelativeDate, formatDuration } from '@/common/utils'
 import s from './TrackRow.module.css'
@@ -40,6 +41,7 @@ export const TrackRow = ({
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   useClickOutside(menuRef, () => setMenuOpen(false))
+  const { data: meData } = useGetMeQuery()
 
   const handleMenuClick = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -113,10 +115,12 @@ export const TrackRow = ({
         </button>
         {menuOpen && (
           <div className={s.dropdown}>
-            <button className={s.dropdownItem} onClick={handleEdit}>
-              <Icon iconId="edit" width="26" height="26" viewBox="0 0 32 32" />
-              Edit
-            </button>
+            {meData?.userId === user.id && (
+              <button className={s.dropdownItem} onClick={handleEdit}>
+                <Icon iconId="edit" width="26" height="26" viewBox="0 0 32 32" />
+                Edit
+              </button>
+            )}
             <button className={s.dropdownItem} onClick={handleAddToPlaylist}>
               <Icon iconId="add-to-playlist" width="26" height="26" viewBox="0 0 32 32" />
               Add to Playlist

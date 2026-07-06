@@ -9,6 +9,7 @@ import {
   useLikePlaylistMutation,
   useDeletePlaylistMutation,
 } from "@/features/playlists/api/playlistsApi";
+import { useGetMeQuery } from "@/features/auth/api/authApi";
 import { useClickOutside } from "@/common/hooks/useClickOutside";
 import { EditPlaylistModal } from "@/features/playlists/ui/PlaylistsPage/EditPlaylistModal/EditPlaylistModal";
 import { formatDuration } from "@/common/utils";
@@ -42,6 +43,8 @@ export const PlaylistHeader = ({
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const { data: meData } = useGetMeQuery();
 
   useClickOutside(
     menuRef,
@@ -130,47 +133,49 @@ export const PlaylistHeader = ({
             </button>
           </div>
 
-          <div className={s.menuContainer} ref={menuRef}>
-            <button
-              className={s.menuBtn}
-              onClick={() => setMenuOpen((prev) => !prev)}
-            >
-              &#8942;
-            </button>
+          {meData?.userId === attributes.user.id && (
+            <div className={s.menuContainer} ref={menuRef}>
+              <button
+                className={s.menuBtn}
+                onClick={() => setMenuOpen((prev) => !prev)}
+              >
+                &#8942;
+              </button>
 
-            {menuOpen && (
-              <div className={s.dropdown}>
-                <button
-                  className={s.dropdownItem}
-                  onClick={() => {
-                    setMenuOpen(false);
-                    setEditOpen(true);
-                  }}
-                >
-                  <Icon
-                    iconId={"edit"}
-                    width="26"
-                    height="26"
-                    viewBox="0 0 22 20"
-                  /> Edit
-                </button>
-                <button
-                  className={`${s.dropdownItem} ${s.danger}`}
-                  onClick={() => {
-                    setMenuOpen(false);
-                    setDeleteOpen(true);
-                  }}
-                >
-                  <Icon
-                    iconId={"delete"}
-                    width="26"
-                    height="26"
-                    viewBox="0 0 24 24"
-                  /> Delete
-                </button>
-              </div>
-            )}
-          </div>
+              {menuOpen && (
+                <div className={s.dropdown}>
+                  <button
+                    className={s.dropdownItem}
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setEditOpen(true);
+                    }}
+                  >
+                    <Icon
+                      iconId={"edit"}
+                      width="26"
+                      height="26"
+                      viewBox="0 0 22 20"
+                    /> Edit
+                  </button>
+                  <button
+                    className={`${s.dropdownItem} ${s.danger}`}
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setDeleteOpen(true);
+                    }}
+                  >
+                    <Icon
+                      iconId={"delete"}
+                      width="26"
+                      height="26"
+                      viewBox="0 0 24 24"
+                    /> Delete
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
