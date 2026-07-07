@@ -8,6 +8,7 @@ import {
   useLikeTrackMutation,
   useDislikeTrackMutation,
   useAddTrackToPlaylistMutation,
+  useDeleteTrackMutation,
 } from '@/features/tracks/api/tracksApi'
 import { CurrentUserReaction } from '@/common/enums'
 import { TrackRow } from './TrackRow/TrackRow'
@@ -28,6 +29,7 @@ export const TracksList = ({ tracks, playlistId }: Props) => {
   const [dislikeTrack] = useDislikeTrackMutation()
   const [addTrackToPlaylist] = useAddTrackToPlaylistMutation()
   const [unbindTrackFromPlaylist] = useUnbindTrackFromPlaylistMutation()
+  const [deleteTrack] = useDeleteTrackMutation()
   const [reactions, setReactions] = useState<Record<string, number>>({})
   const [likesCounts, setLikesCounts] = useState<Record<string, number>>({})
   const [progress, setProgress] = useState({ currentTime: 0, duration: 0, isPlaying: false })
@@ -106,6 +108,10 @@ export const TracksList = ({ tracks, playlistId }: Props) => {
     unbindTrackFromPlaylist({ playlistId, trackId })
   }
 
+  const handleDelete = (trackId: string) => {
+    deleteTrack({ trackId })
+  }
+
   return (
     <>
       <div className={s.table}>
@@ -135,6 +141,7 @@ export const TracksList = ({ tracks, playlistId }: Props) => {
               onDislike={() => handleDislike(track.id, track.attributes.currentUserReaction)}
               onEdit={() => handleEdit(track)}
               onAddToPlaylist={() => handleStartAddToPlaylist(track)}
+              onDelete={() => handleDelete(track.id)}
               playlistId={playlistId}
               onDeleteFromPlaylist={() => handleDeleteFromPlaylist(track.id)}
             />

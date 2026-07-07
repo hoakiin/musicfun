@@ -113,6 +113,13 @@ export const tracksApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Track"],
     }),
+    deleteTrack: build.mutation<void, { trackId: string }>({
+      query: ({ trackId }) => ({
+        method: "delete",
+        url: `/playlists/tracks/${trackId}`,
+      }),
+      invalidatesTags: ["Track"],
+    }),
   }),
 });
-export const { useFetchTracksInfiniteQuery, useLikeTrackMutation, useDislikeTrackMutation, useUploadTrackMutation, useUploadTrackCoverMutation, useDeleteTrackCoverMutation, useAddTrackToPlaylistMutation, usePublishTrackMutation } = tracksApi;
+export const { useFetchTracksInfiniteQuery, useLikeTrackMutation, useDislikeTrackMutation, useUploadTrackMutation, useUploadTrackCoverMutation, useDeleteTrackCoverMutation, useAddTrackToPlaylistMutation, usePublishTrackMutation, useDeleteTrackMutation } = tracksApi;
