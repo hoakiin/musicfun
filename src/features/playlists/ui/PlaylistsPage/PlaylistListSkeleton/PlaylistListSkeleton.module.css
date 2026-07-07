@@ -1,0 +1,54 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+  --base-color: #1e1e1e;
+  --highlight-color: #2a2a2a;
+}
+
+.card {
+  padding: 8px;
+  background: var(--bg-card);
+  border-radius: 8px;
+}
+
+.cover {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: block;
+  line-height: 0;
+}
+
+.body {
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  height: 20px;
+  width: 75%;
+}
+
+.subtitle {
+  height: 16px;
+  width: 55%;
+}
+
+.stats {
+  height: 16px;
+  width: 45%;
+}
+
+.reactions {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.likes {
+  height: 16px;
+  width: 30%;
+  margin-top: 4px;
+}

@@ -2,6 +2,7 @@ import type {
   PlaylistListData
 } from "@/features/playlists/api/playlistsApi.types";
 import { PlaylistItem } from "../PlaylistItem/PlaylistItem";
+import { PlaylistListSkeleton } from "../PlaylistListSkeleton/PlaylistListSkeleton";
 import s from "./PlaylistList.module.css";
 
 type Props = {
@@ -10,10 +11,13 @@ type Props = {
 };
 
 export const PlaylistsList = ({ playlists, isPlaylistsLoading }: Props) => {
-  
+  if (isPlaylistsLoading) {
+    return <PlaylistListSkeleton count={8} />;
+  }
+
   return (
     <div className={s.items}>
-      {!playlists.length && !isPlaylistsLoading && <h2>Playlists not found</h2>}
+      {!playlists.length && <h2>Playlists not found</h2>}
       {playlists.map((playlist) => {
         return (
           <div className={s.item} key={playlist.id}>
