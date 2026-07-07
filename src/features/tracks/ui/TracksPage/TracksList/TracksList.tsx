@@ -31,7 +31,7 @@ export const TracksList = ({ tracks, playlistId }: Props) => {
   const [unbindTrackFromPlaylist] = useUnbindTrackFromPlaylistMutation()
   const [deleteTrack] = useDeleteTrackMutation()
   const [reactions, setReactions] = useState<Record<string, number>>({})
-  const [likesCounts, setLikesCounts] = useState<Record<string, number>>({})
+  const [_likesCounts, setLikesCounts] = useState<Record<string, number>>({})
   const [progress, setProgress] = useState({ currentTime: 0, duration: 0, isPlaying: false })
 
   const [trackToEdit, setTrackToEdit] = useState<TrackData | null>(null)
