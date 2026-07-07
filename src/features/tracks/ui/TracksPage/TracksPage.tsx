@@ -1,6 +1,7 @@
 import { useDebounceValue, useInfiniteScroll } from "@/common/hooks";
 import { useFetchTracksInfiniteQuery } from "../../api/tracksApi";
 import { TracksList } from "./TracksList/TracksList";
+import { TracksListSkeleton } from "./TracksListSkeleton/TracksListSkeleton";
 import { LoadingTrigger } from "./LoadingTrigger/LoadingTrigger";
 import s from "./TracksPage.module.css";
 import { SearchInput, SortSelect, TagSelect, ArtistSelect } from "@/common/components";
@@ -21,7 +22,7 @@ export const TracksPage = () => {
   const sortBy = sort === "top" ? "likesCount" : "publishedAt";
   const sortDirection = sort === "oldest" ? "asc" : "desc";
 
-  const { data, hasNextPage, isFetching, isFetchingNextPage, fetchNextPage } =
+  const { data, hasNextPage, isFetching, isFetchingNextPage, isLoading, isError, fetchNextPage } =
     useFetchTracksInfiniteQuery({
       search: debounceSearch,
       sortBy,
@@ -73,7 +74,13 @@ export const TracksPage = () => {
         </label>
       </div>
 
-      <TracksList tracks={pages} />
+      {isLoading ? (
+        <TracksListSkeleton count={8} />
+      ) : isError ? (
+        <p className={s.error}>Failed to load tracks</p>
+      ) : (
+        <TracksList tracks={pages} />
+      )}
 
       {hasNextPage && (
         <LoadingTrigger

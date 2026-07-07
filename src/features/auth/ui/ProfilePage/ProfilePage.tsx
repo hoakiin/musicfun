@@ -7,6 +7,7 @@ import { PlaylistsList } from "@/features/playlists/ui/PlaylistsPage/PlaylistLis
 import { TracksList } from "@/features/tracks/ui/TracksPage/TracksList/TracksList";
 import { CreatePlaylistModal } from "@/features/playlists/ui/PlaylistsPage/CreatePlaylistModal/CreatePlaylistModal";
 import { UploadTrackModal } from "@/features/tracks/ui/UploadTrackModal/UploadTrackModal";
+import { ProfilePageSkeleton } from "./ProfilePageSkeleton/ProfilePageSkeleton";
 import { Path } from "@/common/routing";
 import s from "./ProfilePage.module.css";
 
@@ -25,29 +26,29 @@ export const ProfilePage = () => {
   const [uploadTrackOpen, setUploadTrackOpen] = useState(false);
   const { data: meResponse, isLoading: isMeLoading } = useGetMeQuery();
 
-  const { data: playlistsResponse, isLoading: isPlaylistsLoading } =
+  const { data: playlistsResponse, isLoading: isPlaylistsLoading, isError: isPlaylistsError } =
     useFetchPlaylistsQuery(
       { userId: meResponse?.userId },
       { skip: !meResponse?.userId },
     );
 
-  const { data: tracksResponse } = useFetchTracksInfiniteQuery(
+  const { data: tracksResponse, isError: isTracksError } = useFetchTracksInfiniteQuery(
     { userId: meResponse?.userId },
     { skip: !meResponse?.userId },
   );
 
-  const { data: likedPlaylistsResponse, isLoading: isLikedPlaylistsLoading } =
+  const { data: likedPlaylistsResponse, isLoading: isLikedPlaylistsLoading, isError: isLikedPlaylistsError } =
     useFetchPlaylistsQuery(
       { onlyLikedByMe: true },
       { skip: !meResponse?.userId },
     );
 
-  const { data: likedTracksResponse } = useFetchTracksInfiniteQuery(
+  const { data: likedTracksResponse, isError: isLikedTracksError } = useFetchTracksInfiniteQuery(
     { onlyLikedByMe: true },
     { skip: !meResponse?.userId },
   );
 
-  if (isPlaylistsLoading || isMeLoading) return <h1>Skeleton loader...</h1>;
+  if (isPlaylistsLoading || isMeLoading) return <ProfilePageSkeleton />;
   if (!isMeLoading && !meResponse) return <Navigate to={Path.Playlists} />;
 
   const tracks = tracksResponse?.pages.flatMap((page) => page.data) || [];
@@ -59,6 +60,7 @@ export const ProfilePage = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "my-playlists":
+        if (isPlaylistsError) return <p className={s.error}>Failed to load playlists</p>;
         return (
           <>
             <button
@@ -74,6 +76,7 @@ export const ProfilePage = () => {
           </>
         );
       case "my-tracks":
+        if (isTracksError) return <p className={s.error}>Failed to load tracks</p>;
         return (
           <>
             <button
@@ -86,6 +89,7 @@ export const ProfilePage = () => {
           </>
         );
       case "liked-playlists":
+        if (isLikedPlaylistsError) return <p className={s.error}>Failed to load liked playlists</p>;
         return (
           <PlaylistsList
             isPlaylistsLoading={isLikedPlaylistsLoading || isMeLoading}
@@ -93,6 +97,7 @@ export const ProfilePage = () => {
           />
         );
       case "liked-tracks":
+        if (isLikedTracksError) return <p className={s.error}>Failed to load liked tracks</p>;
         return <TracksList tracks={likedTracks} />;
     }
   };

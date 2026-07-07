@@ -17,7 +17,7 @@ export const PlaylistsList = ({ playlists, isPlaylistsLoading }: Props) => {
 
   return (
     <div className={s.items}>
-      {!playlists.length && <h2>Playlists not found</h2>}
+      {!playlists.length && <p className={s.empty}>Playlists not found</p>}
       {playlists.map((playlist) => {
         return (
           <div className={s.item} key={playlist.id}>

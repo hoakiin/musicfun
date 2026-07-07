@@ -1,0 +1,80 @@
+.page :global(.react-loading-skeleton) {
+  --base-color: #1e1e1e;
+  --highlight-color: #2a2a2a;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  display: block;
+  line-height: 0;
+  margin-bottom: 10px;
+}
+
+.login {
+  height: 20px;
+  width: 150px;
+  margin-bottom: 6px;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.statNum {
+  height: 14px;
+  width: 30px;
+}
+
+.statLabel {
+  height: 12px;
+  width: 60px;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 34px;
+  border-bottom: 1px solid var(--border-primary);
+  width: 100%;
+}
+
+.tab {
+  flex: 1;
+  height: 48px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.content {
+  width: 100%;
+}
+
+.createBtn {
+  width: 328px;
+  height: 48px;
+  border-radius: 50px;
+  margin: 0 auto 32px;
+  display: block;
+}

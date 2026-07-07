@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useFetchPlaylistQuery } from "../../api/playlistsApi";
 import { TracksList } from "@/features/tracks/ui/TracksPage/TracksList/TracksList";
+import { TracksListSkeleton } from "@/features/tracks/ui/TracksPage/TracksListSkeleton/TracksListSkeleton";
 import { useAppSelector } from "@/app/model/store";
 import { selectCurrentTrack } from "@/features/player/model/playerSlice";
 import { triggerPlay, triggerTogglePlay } from "@/features/player/lib/playController";
 import { playerStore } from "@/features/player/lib/playerStore";
 import { usePlaylistTracks } from "./usePlaylistTracks";
 import { PlaylistHeader } from "./PlaylistHeader/PlaylistHeader";
+import { PlaylistPageSkeleton } from "./PlaylistPageSkeleton/PlaylistPageSkeleton";
 import s from "./PlaylistPage.module.css";
 
 export const PlaylistPage = () => {
@@ -40,7 +42,7 @@ export const PlaylistPage = () => {
   const showPause = isFirstTrackActive && isPlaying;
 
   if (playlistLoading || !playlistData) {
-    return <h1>Loading...</h1>;
+    return <PlaylistPageSkeleton />;
   }
 
   return (
@@ -52,9 +54,9 @@ export const PlaylistPage = () => {
         onPlay={handlePlay}
       />
 
-      {tracksLoading && <p>Loading tracks...</p>}
+      {tracksLoading && <TracksListSkeleton count={8} />}
 
-      {tracksAsTrackData.length > 0 && <TracksList tracks={tracksAsTrackData} playlistId={playlistId} />}
+      {!tracksLoading && tracksAsTrackData.length > 0 && <TracksList tracks={tracksAsTrackData} playlistId={playlistId} />}
     </div>
   );
 };
