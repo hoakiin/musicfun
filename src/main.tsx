@@ -6,7 +6,7 @@ import {Provider} from 'react-redux'
 import { store } from "./app/model/store.ts";
 
 createRoot(document.getElementById('root')!).render(
-  <BrowserRouter basename="/musicfun">
+  <BrowserRouter>
     <Provider store={store}>
       <App />
     </Provider>
