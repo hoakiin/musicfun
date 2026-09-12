@@ -1,26 +1,20 @@
 const UPSTREAM_BASE = 'https://musicfun.it-incubator.app/api/1.0'
 const ALLOWED_ORIGIN = 'http://localhost:5173'
+const BODY_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE']
 
-function readBody(req) {
-  return new Promise(resolve => {
-    const chunks = []
-    req.on('data', chunk => chunks.push(chunk))
-    req.on('end', () => resolve(Buffer.concat(chunks)))
-    req.on('error', () => resolve(Buffer.alloc(0)))
-  })
-}
-
-module.exports = async function handler(req, res) {
+export default async function handler(request) {
   try {
     const API_KEY = process.env.MUSICFUN_API_KEY
 
     if (!API_KEY) {
-      res.status(503).json({ message: 'MUSICFUN_API_KEY is not configured on Vercel' })
-      return
+      return new Response(JSON.stringify({ message: 'MUSICFUN_API_KEY is not configured on Vercel' }), {
+        status: 503,
+        headers: { 'content-type': 'application/json' },
+      })
     }
 
-    const parsed = new URL(req.url || '', 'http://localhost')
-    const params = parsed.searchParams
+    const url = new URL(request.url, 'http://localhost')
+    const params = url.searchParams
     const path = params.get('__path') || ''
     params.delete('__path')
     const query = params.toString()
@@ -30,33 +24,35 @@ module.exports = async function handler(req, res) {
       'API-KEY': API_KEY,
       Origin: ALLOWED_ORIGIN,
     }
-    if (req.headers.authorization) headers.Authorization = req.headers.authorization
-    if (req.headers.accept) headers.Accept = req.headers.accept
+    const auth = request.headers.get('authorization')
+    if (auth) headers.Authorization = auth
+    const accept = request.headers.get('accept')
+    if (accept) headers.Accept = accept
 
-    const method = (req.method || 'GET').toUpperCase()
+    const method = (request.method || 'GET').toUpperCase()
 
-    let upstreamRes
-    if (method === 'GET' || method === 'HEAD') {
-      upstreamRes = await fetch(upstream, { method, headers })
-    } else {
-      const body = await readBody(req)
-      headers['Content-Type'] = req.headers['content-type'] || 'application/json'
-      upstreamRes = await fetch(upstream, { method, headers, body })
+    const init = { method, headers }
+    if (BODY_METHODS.includes(method)) {
+      const body = await request.text()
+      headers['Content-Type'] = request.headers.get('content-type') || 'application/json'
+      if (body) init.body = body
     }
 
-    res.status(upstreamRes.status)
+    const upstreamRes = await fetch(upstream, init)
 
+    const resHeaders = new Headers()
     const contentType = upstreamRes.headers.get('content-type')
-    if (contentType) res.setHeader('content-type', contentType)
-
+    if (contentType) resHeaders.set('content-type', contentType)
     const location = upstreamRes.headers.get('location')
-    if (location) res.setHeader('location', location)
-
+    if (location) resHeaders.set('location', location)
     const setCookie = upstreamRes.headers.get('set-cookie')
-    if (setCookie) res.setHeader('set-cookie', setCookie)
+    if (setCookie) resHeaders.set('set-cookie', setCookie)
 
-    res.send(await upstreamRes.text())
+    return new Response(await upstreamRes.text(), { status: upstreamRes.status, headers: resHeaders })
   } catch (err) {
-    res.status(502).json({ message: `Proxy error: ${err.message}` })
+    return new Response(JSON.stringify({ message: `Proxy error: ${err.message}` }), {
+      status: 502,
+      headers: { 'content-type': 'application/json' },
+    })
   }
 }
